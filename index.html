@@ -1,718 +1,1578 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<meta name="theme-color" content="#070b14">
 
 <title>Siflow Chat</title>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
+html,
+body{
+    width:100%;
+    height:100%;
+}
+
 :root{
+
     --bg:#070b14;
     --sidebar:#0b1120;
     --card:#101827;
     --card2:#151f31;
     --border:#202d43;
+
     --text:#f5f7fb;
     --muted:#8996aa;
+
     --blue:#2587ff;
-    --blue2:#0068ff;
+    --blue2:#0758e8;
+
+    --danger:#ff4d67;
+
+    --radius:14px;
 }
 
 body{
-    min-height:100vh;
-    background:var(--bg);
+
+    min-height:100dvh;
+
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(37,135,255,.12),
+            transparent 35%
+        ),
+        var(--bg);
+
     color:var(--text);
-    font-family:Arial,Helvetica,sans-serif;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
     overflow:hidden;
+
+    transition:
+        background .25s,
+        color .25s;
+}
+
+button,
+input,
+textarea{
+    font-family:inherit;
 }
 
 button{
     border:0;
     cursor:pointer;
     color:inherit;
-    font-family:inherit;
 }
 
 .hidden{
-    display:none!important;
+    display:none !important;
 }
 
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar{
+    width:6px;
+}
+
+::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#26344b;
+    border-radius:20px;
+}
+
+/* =========================================================
+   LOGO
+========================================================= */
+
 .logo{
+
     display:flex;
+
     align-items:center;
+
     gap:10px;
+
     font-weight:800;
+
     letter-spacing:.5px;
 }
 
 .logo-icon{
-    width:38px;
-    height:38px;
-    border-radius:12px;
+
+    width:40px;
+    height:40px;
+
+    border-radius:13px;
+
     display:flex;
+
     align-items:center;
     justify-content:center;
-    background:linear-gradient(135deg,#2da4ff,#0756ff);
-    box-shadow:0 0 25px rgba(25,125,255,.25);
-    font-size:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #35a8ff,
+            #0758e8
+        );
+
+    box-shadow:
+        0 0 25px rgba(37,135,255,.28);
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.logo-icon:before{
+
+    content:"";
+
+    position:absolute;
+
+    width:18px;
+    height:18px;
+
+    border:2px solid white;
+
+    border-radius:7px;
+
+    opacity:.9;
+}
+
+.logo-icon:after{
+
+    content:"";
+
+    position:absolute;
+
+    width:7px;
+    height:7px;
+
+    background:white;
+
+    border-radius:50%;
+
+    bottom:8px;
+    right:8px;
+}
+
+.logo-icon span{
+    display:none;
 }
 
 .logo span{
+
     font-size:20px;
 }
 
-.primary-btn{
-    width:100%;
-    padding:14px 18px;
-    border-radius:13px;
-    background:linear-gradient(135deg,var(--blue),var(--blue2));
-    font-weight:700;
-    transition:.2s;
-}
-
-.primary-btn:hover{
-    transform:translateY(-1px);
-    box-shadow:0 8px 25px rgba(0,110,255,.25);
-}
-
-.primary-btn:disabled{
-    opacity:.45;
-    cursor:not-allowed;
-    transform:none;
-    box-shadow:none;
-}
-
-.secondary-btn{
-    width:100%;
-    padding:13px 18px;
-    border-radius:13px;
-    background:var(--card2);
-    border:1px solid var(--border);
-    font-weight:600;
-}
-
-input{
-    width:100%;
-    padding:14px 15px;
-    border-radius:12px;
-    border:1px solid var(--border);
-    background:#0c1422;
-    color:white;
-    outline:none;
-    font-size:15px;
-}
-
-input:focus{
-    border-color:var(--blue);
-}
-
-/* ONBOARDING */
-
-#onboarding{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:25px;
-    background:
-      radial-gradient(circle at 50% 20%,rgba(0,110,255,.13),transparent 35%),
-      var(--bg);
-}
-
-.onboard-card{
-    width:min(520px,100%);
-    text-align:center;
-}
-
 .big-logo{
+
     display:flex;
+
     justify-content:center;
+
     margin-bottom:35px;
 }
 
 .big-logo .logo-icon{
-    width:72px;
-    height:72px;
-    border-radius:22px;
-    font-size:35px;
+
+    width:76px;
+    height:76px;
+
+    border-radius:24px;
 }
 
-.big-logo span{
-    font-size:32px;
+.big-logo .logo span{
+    font-size:34px;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.primary-btn{
+
+    width:100%;
+
+    padding:14px 18px;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--blue2)
+        );
+
+    font-weight:700;
+
+    transition:.2s;
+}
+
+.primary-btn:hover{
+
+    transform:translateY(-1px);
+
+    box-shadow:
+        0 8px 25px rgba(0,110,255,.25);
+}
+
+.primary-btn:disabled{
+
+    opacity:.45;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+    box-shadow:none;
+}
+
+.secondary-btn{
+
+    width:100%;
+
+    padding:13px 18px;
+
+    border-radius:13px;
+
+    background:var(--card2);
+
+    border:1px solid var(--border);
+
+    font-weight:600;
+}
+
+.secondary-btn:hover{
+
+    border-color:#326ba8;
+
+    background:#18253a;
+}
+
+.danger-btn{
+
+    width:100%;
+
+    padding:13px;
+
+    border-radius:12px;
+
+    background:rgba(255,77,103,.08);
+
+    border:1px solid rgba(255,77,103,.2);
+
+    color:#ff7185;
+
+    font-weight:600;
+}
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+input{
+
+    width:100%;
+
+    padding:14px 15px;
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
+
+    background:#0c1422;
+
+    color:white;
+
+    outline:none;
+
+    font-size:15px;
+}
+
+input:focus{
+
+    border-color:var(--blue);
+
+    box-shadow:
+        0 0 0 3px rgba(37,135,255,.08);
+}
+
+textarea{
+
+    width:100%;
+
+    min-height:52px;
+    max-height:180px;
+
+    resize:none;
+
+    background:transparent;
+
+    border:0;
+
+    outline:none;
+
+    color:white;
+
+    font-size:15px;
+
+    padding:9px;
+
+    line-height:1.6;
+}
+
+/* =========================================================
+   ONBOARDING
+========================================================= */
+
+#onboarding{
+
+    min-height:100dvh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:25px;
+}
+
+.onboard-card{
+
+    width:min(520px,100%);
+
+    text-align:center;
 }
 
 .onboard-card h1{
+
     font-size:42px;
+
     margin-bottom:12px;
 }
 
 .onboard-card p{
+
     color:var(--muted);
+
     font-size:16px;
+
     line-height:1.7;
+
     margin-bottom:35px;
 }
 
 .language-grid{
+
     display:grid;
+
     grid-template-columns:repeat(2,1fr);
+
     gap:10px;
+
     margin-bottom:20px;
 }
 
 .language-btn{
+
     padding:15px;
+
     border:1px solid var(--border);
+
     background:var(--card);
+
     border-radius:13px;
+
     text-align:left;
+
     transition:.2s;
 }
 
 .language-btn:hover,
 .language-btn.active{
+
     border-color:var(--blue);
-    background:rgba(37,135,255,.1);
+
+    background:
+        rgba(37,135,255,.1);
 }
 
 .language-btn small{
+
     display:block;
+
     color:var(--muted);
+
     margin-top:4px;
 }
 
-/* AUTH */
+/* =========================================================
+   AUTH
+========================================================= */
 
 #auth{
-    background:
-      radial-gradient(circle at 50% 20%,rgba(0,110,255,.13),transparent 35%),
-      var(--bg);
+
+    min-height:100dvh;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
 }
 
 .auth-card{
+
     width:min(430px,100%);
 }
 
 .auth-card h1{
+
     text-align:center;
+
     margin-bottom:10px;
 }
 
 .auth-card .subtitle{
+
     text-align:center;
+
     color:var(--muted);
+
     margin-bottom:25px;
 }
 
 .auth-form{
+
     display:flex;
+
     flex-direction:column;
+
     gap:12px;
 }
 
 .divider{
+
     display:flex;
+
     align-items:center;
+
     gap:10px;
+
     margin:18px 0;
+
     color:var(--muted);
+
     font-size:13px;
 }
 
 .divider:before,
 .divider:after{
+
     content:"";
+
     flex:1;
+
     height:1px;
+
     background:var(--border);
 }
 
 .auth-switch{
+
     text-align:center;
+
     margin-top:18px;
+
     color:var(--muted);
+
     font-size:14px;
 }
 
 .auth-switch button{
+
     background:none;
+
     color:#5daaff;
 }
 
-/* APP */
+/* =========================================================
+   APP
+========================================================= */
 
 #app{
+
     width:100%;
-    height:100vh;
+
+    height:100dvh;
+
     display:flex;
 }
 
 .sidebar{
-    width:270px;
-    height:100vh;
+
+    width:275px;
+
+    height:100dvh;
+
     background:var(--sidebar);
+
     border-right:1px solid var(--border);
+
     display:flex;
+
     flex-direction:column;
+
     padding:16px;
+
     transition:.25s;
+
     flex-shrink:0;
+
+    z-index:30;
 }
 
 .sidebar-top{
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
     margin-bottom:18px;
 }
 
 .new-chat{
+
     width:100%;
+
     padding:13px;
+
     border-radius:12px;
-    background:linear-gradient(135deg,#1686ff,#0758e8);
+
+    background:
+        linear-gradient(
+            135deg,
+            #1686ff,
+            #0758e8
+        );
+
     font-weight:700;
+
     margin-bottom:18px;
 }
 
+.new-chat:hover{
+
+    box-shadow:
+        0 8px 22px rgba(0,110,255,.2);
+}
+
 .search{
+
     margin-bottom:15px;
 }
 
 .chat-list{
+
     flex:1;
+
     overflow-y:auto;
 }
 
 .chat-group-title{
+
     color:var(--muted);
-    font-size:12px;
+
+    font-size:11px;
+
     margin:15px 7px 8px;
+
     text-transform:uppercase;
+
+    letter-spacing:.8px;
 }
 
 .chat-item{
+
     padding:11px 12px;
+
     border-radius:10px;
+
     margin-bottom:4px;
+
     cursor:pointer;
+
     color:#d8deea;
+
     white-space:nowrap;
+
     overflow:hidden;
+
     text-overflow:ellipsis;
+
+    transition:.15s;
 }
 
 .chat-item:hover,
 .chat-item.active{
+
     background:var(--card2);
 }
 
 .sidebar-bottom{
+
     border-top:1px solid var(--border);
+
     padding-top:12px;
 }
 
 .side-btn{
+
     width:100%;
+
     background:none;
+
     text-align:left;
+
     padding:11px;
+
     border-radius:10px;
+
     color:#cbd4e3;
 }
 
 .side-btn:hover{
+
     background:var(--card2);
 }
 
+/* =========================================================
+   MAIN
+========================================================= */
+
 .main{
+
     flex:1;
+
     min-width:0;
+
     display:flex;
+
     flex-direction:column;
+
+    height:100dvh;
 }
 
 .topbar{
+
     height:65px;
+
+    min-height:65px;
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
-    padding:0 22px;
+
+    padding:
+        0
+        22px;
+
     border-bottom:1px solid var(--border);
+
+    background:
+        rgba(7,11,20,.82);
+
+    backdrop-filter:blur(12px);
+
+    position:relative;
+
+    z-index:10;
 }
 
 .mobile-menu{
+
     display:none;
+
     background:none;
+
     font-size:22px;
+
+    padding:8px;
 }
 
 .profile{
+
     display:flex;
+
     align-items:center;
+
     gap:9px;
 }
 
 .avatar{
-    width:34px;
-    height:34px;
+
+    width:35px;
+    height:35px;
+
     border-radius:50%;
-    background:linear-gradient(135deg,#238bff,#4c35ff);
+
+    background:
+        linear-gradient(
+            135deg,
+            #238bff,
+            #4c35ff
+        );
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     font-weight:bold;
 }
 
+/* =========================================================
+   CHAT AREA
+========================================================= */
+
 .chat-area{
+
     flex:1;
+
     overflow-y:auto;
+
     padding:30px 20px;
+
+    scroll-behavior:smooth;
 }
 
 .welcome{
+
     max-width:850px;
+
     margin:10vh auto 0;
+
     text-align:center;
 }
 
 .welcome h1{
+
     font-size:40px;
+
     margin-bottom:12px;
 }
 
 .welcome p{
+
     color:var(--muted);
+
     margin-bottom:30px;
 }
 
 .tools{
+
     display:grid;
+
     grid-template-columns:repeat(3,1fr);
+
     gap:12px;
+
     max-width:750px;
+
     margin:auto;
 }
 
 .tool{
+
     padding:17px;
+
     border:1px solid var(--border);
+
     background:var(--card);
+
     border-radius:14px;
+
     text-align:left;
+
     transition:.2s;
 }
 
 .tool:hover{
+
     border-color:#286eb8;
+
     transform:translateY(-2px);
 }
 
 .tool strong{
+
     display:block;
+
     margin-bottom:5px;
 }
 
 .tool span{
+
     color:var(--muted);
+
     font-size:13px;
 }
 
+/* =========================================================
+   MESSAGES
+========================================================= */
+
 .messages{
+
     max-width:850px;
+
     margin:auto;
 }
 
 .message{
+
     display:flex;
+
     gap:12px;
+
     margin-bottom:25px;
+
     line-height:1.7;
+
+    animation:
+        messageIn .2s ease;
+}
+
+@keyframes messageIn{
+
+    from{
+        opacity:0;
+        transform:translateY(5px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 .message-avatar{
-    width:34px;
-    height:34px;
+
+    width:35px;
+    height:35px;
+
     border-radius:10px;
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     flex-shrink:0;
+
     background:var(--card2);
 }
 
 .user-message .message-avatar{
-    background:linear-gradient(135deg,#238bff,#4c35ff);
+
+    background:
+        linear-gradient(
+            135deg,
+            #238bff,
+            #4c35ff
+        );
 }
 
 .message-content{
+
     flex:1;
+
     white-space:pre-wrap;
+
     word-break:break-word;
+
+    padding-top:1px;
 }
 
 .message-name{
+
     font-weight:700;
+
     margin-bottom:5px;
 }
 
-/* INPUT */
+/* =========================================================
+   TYPING
+========================================================= */
+
+.typing{
+
+    display:flex;
+
+    gap:5px;
+
+    align-items:center;
+
+    height:25px;
+}
+
+.typing span{
+
+    width:7px;
+    height:7px;
+
+    background:#7d8ba1;
+
+    border-radius:50%;
+
+    animation:
+        typing .8s infinite;
+}
+
+.typing span:nth-child(2){
+    animation-delay:.15s;
+}
+
+.typing span:nth-child(3){
+    animation-delay:.3s;
+}
+
+@keyframes typing{
+
+    0%,100%{
+        opacity:.3;
+        transform:translateY(0);
+    }
+
+    50%{
+        opacity:1;
+        transform:translateY(-3px);
+    }
+}
+
+/* =========================================================
+   INPUT
+========================================================= */
 
 .input-wrapper{
-    padding:15px 20px 20px;
+
+    padding:
+        12px
+        20px
+        max(
+            16px,
+            env(safe-area-inset-bottom)
+        );
 }
 
 .input-box{
-    max-width:850px;
-    margin:auto;
-    border:1px solid var(--border);
-    background:var(--card);
-    border-radius:18px;
-    padding:10px;
-    box-shadow:0 10px 40px rgba(0,0,0,.18);
-}
 
-textarea{
-    width:100%;
-    min-height:52px;
-    max-height:180px;
-    resize:none;
-    background:transparent;
-    border:0;
-    outline:none;
-    color:white;
-    font-size:15px;
-    padding:9px;
-    font-family:inherit;
+    max-width:850px;
+
+    margin:auto;
+
+    border:1px solid var(--border);
+
+    background:var(--card);
+
+    border-radius:18px;
+
+    padding:10px;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.18);
 }
 
 .input-actions{
+
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
 }
 
 .action-left{
+
     display:flex;
+
     gap:5px;
 }
 
 .icon-btn{
+
     width:38px;
     height:38px;
+
     border-radius:10px;
+
     background:transparent;
+
     color:#aab6c9;
 }
 
 .icon-btn:hover{
+
     background:var(--card2);
+
     color:white;
 }
 
 .send-btn{
+
     width:40px;
     height:40px;
+
     border-radius:11px;
-    background:linear-gradient(135deg,#2587ff,#0758e8);
+
+    background:
+        linear-gradient(
+            135deg,
+            #2587ff,
+            #0758e8
+        );
+
     font-size:18px;
 }
 
+.send-btn:disabled{
+
+    opacity:.4;
+
+    cursor:not-allowed;
+}
+
 .footer-note{
+
     max-width:850px;
+
     margin:8px auto 0;
+
     text-align:center;
+
     color:#596579;
+
     font-size:11px;
 }
 
-/* SETTINGS */
+/* =========================================================
+   EMPTY CHAT
+========================================================= */
+
+.empty-search{
+
+    text-align:center;
+
+    color:var(--muted);
+
+    padding:30px 10px;
+
+    font-size:13px;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
 
 .modal{
+
     position:fixed;
+
     inset:0;
-    background:rgba(0,0,0,.65);
+
+    background:
+        rgba(0,0,0,.65);
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     padding:20px;
-    z-index:20;
+
+    z-index:100;
 }
 
 .modal-card{
+
     width:min(520px,100%);
+
     max-height:90vh;
+
     overflow:auto;
+
     background:#0d1523;
+
     border:1px solid var(--border);
+
     border-radius:20px;
+
     padding:22px;
 }
 
 .modal-header{
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
     margin-bottom:20px;
 }
 
 .close-btn{
+
     background:none;
-    font-size:22px;
+
+    font-size:25px;
+
     color:var(--muted);
 }
 
 .setting{
+
     padding:15px 0;
+
     border-bottom:1px solid var(--border);
 }
 
 .setting-title{
+
     font-weight:700;
+
     margin-bottom:5px;
 }
 
 .setting-desc{
+
     color:var(--muted);
+
     font-size:13px;
+
     margin-bottom:12px;
+
+    line-height:1.5;
 }
 
 .theme-buttons{
+
     display:flex;
+
     gap:8px;
 }
 
 .theme-btn{
+
     flex:1;
+
     padding:11px;
+
     border-radius:10px;
+
     background:var(--card);
+
     border:1px solid var(--border);
 }
 
 .theme-btn.active{
+
     border-color:var(--blue);
+
+    background:
+        rgba(37,135,255,.08);
 }
 
-/* LIGHT */
+/* =========================================================
+   FILE NAME
+========================================================= */
+
+.file-preview{
+
+    display:none;
+
+    margin-bottom:8px;
+
+    padding:8px 10px;
+
+    background:var(--card2);
+
+    border-radius:10px;
+
+    font-size:12px;
+
+    color:#b8c4d6;
+}
+
+.file-preview.show{
+    display:block;
+}
+
+/* =========================================================
+   LIGHT MODE
+========================================================= */
 
 body.light{
+
     --bg:#f5f7fb;
+
     --sidebar:#ffffff;
+
     --card:#ffffff;
+
     --card2:#edf2f8;
+
     --border:#dce3ed;
+
     --text:#111827;
+
     --muted:#667085;
 }
 
 body.light input{
+
     background:#f5f7fb;
+
     color:#111827;
 }
 
 body.light textarea{
+
     color:#111827;
 }
 
 body.light .modal-card{
+
     background:white;
 }
 
-/* MOBILE */
+body.light .topbar{
+
+    background:
+        rgba(245,247,251,.85);
+}
+
+/* =========================================================
+   RTL
+========================================================= */
+
+body.rtl{
+
+    direction:rtl;
+}
+
+body.rtl .sidebar{
+
+    border-right:0;
+
+    border-left:1px solid var(--border);
+}
+
+body.rtl .side-btn{
+
+    text-align:right;
+}
+
+body.rtl .tool{
+
+    text-align:right;
+}
+
+body.rtl .language-btn{
+
+    text-align:right;
+}
+
+body.rtl .message{
+
+    flex-direction:row;
+}
+
+body.rtl .message-content{
+
+    text-align:right;
+}
+
+body.rtl .chat-item{
+
+    text-align:right;
+}
+
+body.rtl .search input{
+
+    text-align:right;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:800px){
 
     .sidebar{
+
         position:fixed;
-        left:-285px;
+
+        left:-290px;
+
         top:0;
-        z-index:15;
-        box-shadow:15px 0 40px rgba(0,0,0,.35);
+
+        height:100dvh;
+
+        box-shadow:
+            15px 0 40px rgba(0,0,0,.35);
+    }
+
+    body.rtl .sidebar{
+
+        left:auto;
+
+        right:-290px;
     }
 
     .sidebar.open{
+
         left:0;
     }
 
+    body.rtl .sidebar.open{
+
+        left:auto;
+
+        right:0;
+    }
+
     .mobile-menu{
+
         display:block;
     }
 
     .topbar{
-        padding:0 15px;
-    }
 
-    .welcome{
-        margin-top:7vh;
-    }
+        padding:0 12px;
 
-    .welcome h1{
-        font-size:30px;
-    }
+        height:60px;
 
-    .tools{
-        grid-template-columns:repeat(2,1fr);
+        min-height:60px;
     }
 
     .chat-area{
-        padding:20px 14px;
+
+        padding:
+            18px
+            12px
+            10px;
+    }
+
+    .welcome{
+
+        margin-top:6vh;
+    }
+
+    .welcome h1{
+
+        font-size:29px;
+    }
+
+    .welcome p{
+
+        font-size:14px;
+
+        line-height:1.6;
+    }
+
+    .tools{
+
+        grid-template-columns:repeat(2,1fr);
+
+        gap:9px;
+    }
+
+    .tool{
+
+        padding:14px;
+
+        min-height:90px;
     }
 
     .input-wrapper{
-        padding:10px;
+
+        padding:
+            8px
+            10px
+            max(
+                10px,
+                env(safe-area-inset-bottom)
+            );
+    }
+
+    .input-box{
+
+        border-radius:16px;
+
+        padding:8px;
+    }
+
+    textarea{
+
+        min-height:48px;
+
+        font-size:15px;
+    }
+
+    .footer-note{
+
+        margin-top:5px;
     }
 }
 
 @media(max-width:480px){
 
     .language-grid{
+
         grid-template-columns:1fr;
     }
 
     .tools{
+
         grid-template-columns:1fr;
     }
 
     .welcome h1{
-        font-size:27px;
+
+        font-size:26px;
     }
 
-    .welcome p{
-        font-size:14px;
+    .welcome{
+
+        margin-top:4vh;
     }
 
     .profile-name{
+
         display:none;
     }
+
+    .message{
+
+        gap:8px;
+
+        margin-bottom:20px;
+    }
+
+    .message-avatar{
+
+        width:32px;
+        height:32px;
+    }
+
+    .onboard-card h1{
+
+        font-size:31px;
+    }
+
+    .big-logo .logo span{
+
+        font-size:29px;
+    }
+
 }
+
+/* =========================================================
+   OVERLAY MOBILE
+========================================================= */
+
+.sidebar-overlay{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:20;
+}
+
+.sidebar-overlay.show{
+
+    display:block;
+}
+
+@media(min-width:801px){
+
+    .sidebar-overlay{
+
+        display:none !important;
+    }
+}
+
 </style>
+
 </head>
 
 <body>
 
-<!-- =========================
+
+<!-- =======================================================
      ONBOARDING
-========================= -->
+======================================================= -->
 
 <section id="onboarding">
 
     <div class="onboard-card">
 
         <div class="big-logo">
+
             <div class="logo">
-                <div class="logo-icon">S</div>
+
+                <div class="logo-icon"></div>
+
                 <span>SIFLOW</span>
+
             </div>
+
         </div>
+
 
         <div id="welcomeStep">
 
@@ -721,70 +1581,146 @@ body.light .modal-card{
             <p>
                 Your AI. Your Ideas. Your World.
                 <br>
-                A modern AI assistant designed to help you learn, create and explore.
+                A modern AI assistant designed to help you
+                learn, create and explore.
             </p>
 
-            <button class="primary-btn" onclick="showLanguage()">
+            <button
+                class="primary-btn"
+                onclick="showLanguage()">
+
                 Get Started →
+
             </button>
 
         </div>
+
 
         <div id="languageStep" class="hidden">
 
             <h1>Choose your language</h1>
 
-            <p>Select the language you want to use with Siflow.</p>
+            <p>
+                Select the language you want to use with Siflow.
+            </p>
+
 
             <div class="language-grid">
 
-                <button class="language-btn" onclick="selectLanguage('en',this)">
+                <button
+                    class="language-btn"
+                    onclick="selectLanguage('en',this)">
+
                     🇬🇧 English
-                    <small>English</small>
+
+                    <small>
+                        English
+                    </small>
+
                 </button>
 
-                <button class="language-btn" onclick="selectLanguage('ar',this)">
+
+                <button
+                    class="language-btn"
+                    onclick="selectLanguage('ar',this)">
+
                     🇩🇿 العربية
-                    <small>Arabic</small>
+
+                    <small>
+                        Arabic
+                    </small>
+
                 </button>
 
-                <button class="language-btn" onclick="selectLanguage('fr',this)">
+
+                <button
+                    class="language-btn"
+                    onclick="selectLanguage('fr',this)">
+
                     🇫🇷 Français
-                    <small>French</small>
+
+                    <small>
+                        French
+                    </small>
+
                 </button>
 
-                <button class="language-btn" onclick="selectLanguage('es',this)">
+
+                <button
+                    class="language-btn"
+                    onclick="selectLanguage('es',this)">
+
                     🇪🇸 Español
-                    <small>Spanish</small>
+
+                    <small>
+                        Spanish
+                    </small>
+
                 </button>
 
-                <button class="language-btn" onclick="selectLanguage('de',this)">
+
+                <button
+                    class="language-btn"
+                    onclick="selectLanguage('de',this)">
+
                     🇩🇪 Deutsch
-                    <small>German</small>
+
+                    <small>
+                        German
+                    </small>
+
                 </button>
 
-                <button class="language-btn" onclick="selectLanguage('tr',this)">
+
+                <button
+                    class="language-btn"
+                    onclick="selectLanguage('tr',this)">
+
                     🇹🇷 Türkçe
-                    <small>Turkish</small>
+
+                    <small>
+                        Turkish
+                    </small>
+
                 </button>
 
-                <button class="language-btn" onclick="selectLanguage('ja',this)">
+
+                <button
+                    class="language-btn"
+                    onclick="selectLanguage('ja',this)">
+
                     🇯🇵 日本語
-                    <small>Japanese</small>
+
+                    <small>
+                        Japanese
+                    </small>
+
                 </button>
 
-                <button class="language-btn" onclick="selectLanguage('zh',this)">
+
+                <button
+                    class="language-btn"
+                    onclick="selectLanguage('zh',this)">
+
                     🇨🇳 中文
-                    <small>Chinese</small>
+
+                    <small>
+                        Chinese
+                    </small>
+
                 </button>
 
             </div>
 
-            <button id="continueLanguage"
-                    class="primary-btn"
-                    onclick="showAuth()"
-                    disabled>
+
+            <button
+                id="continueLanguage"
+                class="primary-btn"
+                onclick="showAuth()"
+                disabled>
+
                 Continue →
+
             </button>
 
         </div>
@@ -794,54 +1730,90 @@ body.light .modal-card{
 </section>
 
 
-<!-- =========================
+<!-- =======================================================
      AUTH
-========================= -->
+======================================================= -->
 
-<section id="auth"
-         class="hidden"
-         style="min-height:100vh;align-items:center;justify-content:center;padding:20px;">
+<section
+    id="auth"
+    class="hidden">
 
     <div class="auth-card">
 
         <div class="big-logo">
+
             <div class="logo">
-                <div class="logo-icon">S</div>
+
+                <div class="logo-icon"></div>
+
                 <span>SIFLOW</span>
+
             </div>
+
         </div>
 
-        <h1 id="authTitle">Welcome to Siflow</h1>
 
-        <div class="subtitle" id="authSubtitle">
+        <h1 id="authTitle">
+            Welcome to Siflow
+        </h1>
+
+
+        <div
+            class="subtitle"
+            id="authSubtitle">
+
             Sign in to continue
+
         </div>
 
-        <button class="secondary-btn" onclick="demoLogin()">
+
+        <button
+            class="secondary-btn"
+            onclick="demoLogin()">
+
             🌐 Continue with Google
+
         </button>
 
-        <div class="divider">OR</div>
+
+        <div class="divider">
+            OR
+        </div>
+
 
         <div class="auth-form">
 
-            <input id="email"
-                   type="email"
-                   placeholder="Email">
+            <input
+                id="email"
+                type="email"
+                placeholder="Email">
 
-            <input id="password"
-                   type="password"
-                   placeholder="Password">
 
-            <button class="primary-btn" onclick="demoLogin()">
+            <input
+                id="password"
+                type="password"
+                placeholder="Password">
+
+
+            <button
+                class="primary-btn"
+                onclick="demoLogin()">
+
                 Sign In
+
             </button>
 
         </div>
 
+
         <div class="auth-switch">
+
             Don't have an account?
-            <button onclick="toggleSignup()">Sign Up</button>
+
+            <button onclick="toggleSignup()">
+                Sign Up
+            </button>
+
         </div>
 
     </div>
@@ -849,69 +1821,87 @@ body.light .modal-card{
 </section>
 
 
-<!-- =========================
+<!-- =======================================================
      APP
-========================= -->
+======================================================= -->
 
-<section id="app" class="hidden">
+<section
+    id="app"
+    class="hidden">
 
-    <aside class="sidebar" id="sidebar">
+
+    <!-- SIDEBAR -->
+
+    <aside
+        class="sidebar"
+        id="sidebar">
+
 
         <div class="sidebar-top">
 
             <div class="logo">
-                <div class="logo-icon">S</div>
+
+                <div class="logo-icon"></div>
+
                 <span>SIFLOW</span>
+
             </div>
 
         </div>
 
-        <button class="new-chat" onclick="newChat()">
+
+        <button
+            class="new-chat"
+            onclick="newChat()">
+
             ＋ New Chat
+
         </button>
 
+
         <div class="search">
-            <input id="searchInput"
-                   placeholder="🔍 Search chats..."
-                   oninput="searchChats()">
-        </div>
 
-        <div class="chat-list" id="chatList">
-
-            <div class="chat-group-title">Today</div>
-
-            <div class="chat-item active" onclick="loadChat(this)">
-                How can I learn Python?
-            </div>
-
-            <div class="chat-item" onclick="loadChat(this)">
-                Website idea
-            </div>
-
-            <div class="chat-item" onclick="loadChat(this)">
-                Fix my code
-            </div>
-
-            <div class="chat-group-title">Yesterday</div>
-
-            <div class="chat-item" onclick="loadChat(this)">
-                Explain artificial intelligence
-            </div>
-
-            <div class="chat-item" onclick="loadChat(this)">
-                School project
-            </div>
+            <input
+                id="searchInput"
+                placeholder="🔍 Search chats..."
+                oninput="searchChats()">
 
         </div>
+
+
+        <div
+            class="chat-list"
+            id="chatList">
+
+        </div>
+
 
         <div class="sidebar-bottom">
 
-            <button class="side-btn" onclick="openSettings()">
+            <button
+                class="side-btn"
+                onclick="openSettings()">
+
                 ⚙️ Settings
+
             </button>
 
-            <button class="side-btn" onclick="logout()">
+
+            <button
+                class="side-btn"
+                onclick="deleteCurrentChat()">
+
+                🗑️ Delete Chat
+
+            </button>
+
+
+            <button
+                class="side-btn"
+                onclick="logout()">
+
                 🚪 Log out
+
             </button>
 
         </div>
@@ -919,19 +1909,44 @@ body.light .modal-card{
     </aside>
 
 
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        onclick="closeSidebar()">
+    </div>
+
+
+    <!-- MAIN -->
+
     <main class="main">
+
 
         <header class="topbar">
 
-            <button class="mobile-menu" onclick="toggleSidebar()">
+            <button
+                class="mobile-menu"
+                onclick="toggleSidebar()">
+
                 ☰
+
             </button>
 
-            <strong>Siflow Chat</strong>
+
+            <strong>
+                Siflow Chat
+            </strong>
+
 
             <div class="profile">
 
-                <span class="profile-name">Siflow User</span>
+                <span
+                    class="profile-name"
+                    id="profileName">
+
+                    Siflow User
+
+                </span>
+
 
                 <div class="avatar">
                     S
@@ -942,99 +1957,224 @@ body.light .modal-card{
         </header>
 
 
-        <div class="chat-area" id="chatArea">
+        <!-- CHAT AREA -->
 
-            <div class="welcome" id="welcome">
+        <div
+            class="chat-area"
+            id="chatArea">
 
-                <h1>What can I help you with?</h1>
 
-                <p>
-                    Ask Siflow anything. Learn, create, code and explore.
+            <div
+                class="welcome"
+                id="welcome">
+
+                <h1 id="welcomeTitle">
+                    What can I help you with?
+                </h1>
+
+
+                <p id="welcomeText">
+                    Ask Siflow anything.
+                    Learn, create, code and explore.
                 </p>
+
 
                 <div class="tools">
 
-                    <button class="tool" onclick="useTool('Code')">
-                        <strong>💻 Code</strong>
-                        <span>Write and explain code</span>
+
+                    <button
+                        class="tool"
+                        onclick="useTool('Code')">
+
+                        <strong>
+                            💻 Code
+                        </strong>
+
+                        <span>
+                            Write and explain code
+                        </span>
+
                     </button>
 
-                    <button class="tool" onclick="useTool('Learn')">
-                        <strong>📚 Learn</strong>
-                        <span>Understand difficult topics</span>
+
+                    <button
+                        class="tool"
+                        onclick="useTool('Learn')">
+
+                        <strong>
+                            📚 Learn
+                        </strong>
+
+                        <span>
+                            Understand difficult topics
+                        </span>
+
                     </button>
 
-                    <button class="tool" onclick="useTool('Write')">
-                        <strong>✍️ Write</strong>
-                        <span>Create and improve text</span>
+
+                    <button
+                        class="tool"
+                        onclick="useTool('Write')">
+
+                        <strong>
+                            ✍️ Write
+                        </strong>
+
+                        <span>
+                            Create and improve text
+                        </span>
+
                     </button>
 
-                    <button class="tool" onclick="useTool('Create')">
-                        <strong>🎨 Create</strong>
-                        <span>Turn ideas into creations</span>
+
+                    <button
+                        class="tool"
+                        onclick="useTool('Create')">
+
+                        <strong>
+                            🎨 Create
+                        </strong>
+
+                        <span>
+                            Turn ideas into creations
+                        </span>
+
                     </button>
 
-                    <button class="tool" onclick="useTool('Research')">
-                        <strong>🔎 Research</strong>
-                        <span>Explore information</span>
+
+                    <button
+                        class="tool"
+                        onclick="useTool('Research')">
+
+                        <strong>
+                            🔎 Research
+                        </strong>
+
+                        <span>
+                            Explore information
+                        </span>
+
                     </button>
 
-                    <button class="tool" onclick="useTool('Analyze')">
-                        <strong>📄 Analyze</strong>
-                        <span>Analyze your files</span>
+
+                    <button
+                        class="tool"
+                        onclick="useTool('Analyze')">
+
+                        <strong>
+                            📄 Analyze
+                        </strong>
+
+                        <span>
+                            Analyze your files
+                        </span>
+
                     </button>
+
 
                 </div>
 
             </div>
 
-            <div class="messages" id="messages"></div>
+
+            <div
+                class="messages"
+                id="messages">
+            </div>
+
 
         </div>
 
 
+        <!-- INPUT -->
+
         <div class="input-wrapper">
 
-            <div class="input-box">
 
-                <textarea id="messageInput"
-                          placeholder="Ask Siflow anything..."
-                          onkeydown="handleKey(event)"></textarea>
+            <div
+                class="input-box">
+
+
+                <div
+                    id="filePreview"
+                    class="file-preview">
+                </div>
+
+
+                <textarea
+                    id="messageInput"
+                    placeholder="Ask Siflow anything..."
+                    oninput="updateSendButton()"
+                    onkeydown="handleKey(event)">
+                </textarea>
+
 
                 <div class="input-actions">
 
+
                     <div class="action-left">
 
-                        <button class="icon-btn"
-                                title="Attach file"
-                                onclick="alert('File upload will be connected later.')">
+
+                        <button
+                            class="icon-btn"
+                            title="Attach file"
+                            onclick="document.getElementById('fileInput').click()">
+
                             📎
+
                         </button>
 
-                        <button class="icon-btn"
-                                title="Voice"
-                                onclick="alert('Voice mode will be connected later.')">
+
+                        <button
+                            class="icon-btn"
+                            title="Voice"
+                            onclick="voiceDemo()">
+
                             🎤
+
                         </button>
 
-                        <button class="icon-btn"
-                                title="Web Search"
-                                onclick="alert('Web Search will be connected later.')">
+
+                        <button
+                            class="icon-btn"
+                            title="Web Search"
+                            onclick="webDemo()">
+
                             🌐
+
                         </button>
+
+
+                        <input
+                            type="file"
+                            id="fileInput"
+                            class="hidden"
+                            onchange="handleFile(this)">
+
 
                     </div>
 
-                    <button class="send-btn" onclick="sendMessage()">
+
+                    <button
+                        id="sendButton"
+                        class="send-btn"
+                        onclick="sendMessage()"
+                        disabled>
+
                         ➤
+
                     </button>
 
                 </div>
 
             </div>
 
+
             <div class="footer-note">
-                Siflow can make mistakes. Check important information.
+
+                Siflow can make mistakes.
+                Check important information.
+
             </div>
 
         </div>
@@ -1044,23 +2184,37 @@ body.light .modal-card{
 </section>
 
 
-<!-- =========================
+<!-- =======================================================
      SETTINGS
-========================= -->
+======================================================= -->
 
-<div id="settingsModal" class="modal hidden">
+<div
+    id="settingsModal"
+    class="modal hidden">
+
 
     <div class="modal-card">
 
+
         <div class="modal-header">
 
-            <h2>Settings</h2>
+            <h2>
+                Settings
+            </h2>
 
-            <button class="close-btn" onclick="closeSettings()">
+
+            <button
+                class="close-btn"
+                onclick="closeSettings()">
+
                 ×
+
             </button>
 
         </div>
+
+
+        <!-- APPEARANCE -->
 
         <div class="setting">
 
@@ -1072,21 +2226,32 @@ body.light .modal-card{
                 Choose how Siflow looks.
             </div>
 
+
             <div class="theme-buttons">
 
-                <button class="theme-btn active"
-                        onclick="setTheme('dark',this)">
+                <button
+                    class="theme-btn active"
+                    onclick="setTheme('dark',this)">
+
                     🌙 Dark
+
                 </button>
 
-                <button class="theme-btn"
-                        onclick="setTheme('light',this)">
+
+                <button
+                    class="theme-btn"
+                    onclick="setTheme('light',this)">
+
                     ☀️ Light
+
                 </button>
 
             </div>
 
         </div>
+
+
+        <!-- LANGUAGE -->
 
         <div class="setting">
 
@@ -1098,12 +2263,19 @@ body.light .modal-card{
                 Change your Siflow language.
             </div>
 
-            <button class="secondary-btn"
-                    onclick="alert('Language settings will be connected later.')">
-                Change Language
+
+            <button
+                class="secondary-btn"
+                onclick="changeLanguage()">
+
+                🌍 Change Language
+
             </button>
 
         </div>
+
+
+        <!-- MEMORY -->
 
         <div class="setting">
 
@@ -1112,15 +2284,23 @@ body.light .modal-card{
             </div>
 
             <div class="setting-desc">
-                Manage what Siflow remembers.
+                Your demo conversations are saved
+                locally on this device.
             </div>
 
-            <button class="secondary-btn"
-                    onclick="alert('Memory will be connected later.')">
-                Manage Memory
+
+            <button
+                class="secondary-btn"
+                onclick="clearAllChats()">
+
+                Clear All Conversations
+
             </button>
 
         </div>
+
+
+        <!-- PRIVACY -->
 
         <div class="setting">
 
@@ -1129,15 +2309,34 @@ body.light .modal-card{
             </div>
 
             <div class="setting-desc">
-                Manage your conversations and privacy.
+                This demo stores data in your browser
+                using localStorage.
             </div>
 
-            <button class="secondary-btn"
-                    onclick="alert('Privacy settings will be connected later.')">
-                Privacy Settings
-            </button>
+        </div>
+
+
+        <!-- ABOUT -->
+
+        <div class="setting">
+
+            <div class="setting-title">
+                About Siflow
+            </div>
+
+            <div class="setting-desc">
+
+                Siflow Chat — Your AI.
+                Your Ideas. Your World.
+
+                <br><br>
+
+                Version 1.0 Demo
+
+            </div>
 
         </div>
+
 
     </div>
 
@@ -1146,114 +2345,510 @@ body.light .modal-card{
 
 <script>
 
-/* =========================
-   STATE
-========================= */
+/* =========================================================
+   VARIABLES
+========================================================= */
 
-let selectedLanguage = null;
+let selectedLanguage =
+    localStorage.getItem("siflowLanguage") || null;
+
 let signupMode = false;
 
+let currentChatId = null;
 
-/* =========================
+let selectedFile = null;
+
+
+/* =========================================================
+   TRANSLATIONS
+========================================================= */
+
+const translations = {
+
+    en: {
+
+        welcome:
+            "Welcome to Siflow",
+
+        welcomeDescription:
+            "Your AI. Your Ideas. Your World.",
+
+        choose:
+            "Choose your language",
+
+        chooseDescription:
+            "Select the language you want to use with Siflow.",
+
+        continue:
+            "Continue →",
+
+        authTitle:
+            "Welcome to Siflow",
+
+        authSubtitle:
+            "Sign in to continue",
+
+        email:
+            "Email",
+
+        password:
+            "Password",
+
+        signIn:
+            "Sign In",
+
+        signUp:
+            "Sign Up",
+
+        appWelcome:
+            "What can I help you with?",
+
+        appDescription:
+            "Ask Siflow anything. Learn, create, code and explore.",
+
+        placeholder:
+            "Ask Siflow anything...",
+
+        today:
+            "Today",
+
+        yesterday:
+            "Yesterday"
+
+    },
+
+
+    ar: {
+
+        welcome:
+            "مرحباً بك في Siflow",
+
+        welcomeDescription:
+            "ذكاؤك الاصطناعي. أفكارك. عالمك.",
+
+        choose:
+            "اختر لغتك",
+
+        chooseDescription:
+            "اختر اللغة التي تريد استعمالها مع Siflow.",
+
+        continue:
+            "متابعة ←",
+
+        authTitle:
+            "مرحباً بك في Siflow",
+
+        authSubtitle:
+            "سجّل الدخول للمتابعة",
+
+        email:
+            "البريد الإلكتروني",
+
+        password:
+            "كلمة المرور",
+
+        signIn:
+            "تسجيل الدخول",
+
+        signUp:
+            "إنشاء حساب",
+
+        appWelcome:
+            "كيف يمكنني مساعدتك؟",
+
+        appDescription:
+            "اسأل Siflow عن أي شيء. تعلّم، أنشئ، برمج واستكشف.",
+
+        placeholder:
+            "اسأل Siflow أي شيء...",
+
+        today:
+            "اليوم",
+
+        yesterday:
+            "الأمس"
+
+    },
+
+
+    fr: {
+
+        welcome:
+            "Bienvenue sur Siflow",
+
+        welcomeDescription:
+            "Votre IA. Vos idées. Votre monde.",
+
+        choose:
+            "Choisissez votre langue",
+
+        chooseDescription:
+            "Sélectionnez la langue que vous voulez utiliser.",
+
+        continue:
+            "Continuer →",
+
+        authTitle:
+            "Bienvenue sur Siflow",
+
+        authSubtitle:
+            "Connectez-vous pour continuer",
+
+        email:
+            "E-mail",
+
+        password:
+            "Mot de passe",
+
+        signIn:
+            "Connexion",
+
+        signUp:
+            "Créer un compte",
+
+        appWelcome:
+            "Comment puis-je vous aider ?",
+
+        appDescription:
+            "Demandez n'importe quoi à Siflow. Apprenez, créez, codez et explorez.",
+
+        placeholder:
+            "Demandez quelque chose à Siflow..."
+
+    },
+
+    es: {
+
+        welcome:
+            "Bienvenido a Siflow",
+
+        welcomeDescription:
+            "Tu IA. Tus ideas. Tu mundo.",
+
+        choose:
+            "Elige tu idioma",
+
+        chooseDescription:
+            "Selecciona el idioma que quieres utilizar.",
+
+        continue:
+            "Continuar →",
+
+        authTitle:
+            "Bienvenido a Siflow",
+
+        authSubtitle:
+            "Inicia sesión para continuar",
+
+        email:
+            "Correo electrónico",
+
+        password:
+            "Contraseña",
+
+        signIn:
+            "Iniciar sesión",
+
+        signUp:
+            "Crear cuenta",
+
+        appWelcome:
+            "¿En qué puedo ayudarte?",
+
+        appDescription:
+            "Pregunta a Siflow cualquier cosa. Aprende, crea, programa y explora.",
+
+        placeholder:
+            "Pregunta cualquier cosa a Siflow..."
+
+    }
+
+};
+
+
+/* =========================================================
+   GET TRANSLATION
+========================================================= */
+
+function t(key){
+
+    const lang =
+        selectedLanguage || "en";
+
+    return (
+        translations[lang] &&
+        translations[lang][key]
+    ) ||
+    translations.en[key] ||
+    key;
+}
+
+
+/* =========================================================
+   APPLY LANGUAGE
+========================================================= */
+
+function applyLanguage(){
+
+    if(!selectedLanguage)
+        return;
+
+    const lang =
+        selectedLanguage;
+
+    if(lang === "ar"){
+
+        document.body.classList.add("rtl");
+
+        document.documentElement.dir =
+            "rtl";
+
+        document.documentElement.lang =
+            "ar";
+
+    }else{
+
+        document.body.classList.remove("rtl");
+
+        document.documentElement.dir =
+            "ltr";
+
+        document.documentElement.lang =
+            lang;
+
+    }
+
+
+    const welcomeStep =
+        document.querySelector(
+            "#welcomeStep h1"
+        );
+
+    if(welcomeStep)
+        welcomeStep.textContent =
+            t("welcome");
+
+
+    const welcomeDescription =
+        document.querySelector(
+            "#welcomeStep p"
+        );
+
+    if(welcomeDescription){
+
+        welcomeDescription.innerHTML =
+            t("welcomeDescription") +
+            "<br>" +
+            "A modern AI assistant designed to help you learn, create and explore.";
+
+    }
+
+
+    const continueButton =
+        document.getElementById(
+            "continueLanguage"
+        );
+
+    if(continueButton)
+        continueButton.textContent =
+            t("continue");
+
+
+    const authTitle =
+        document.getElementById(
+            "authTitle"
+        );
+
+    if(authTitle)
+        authTitle.textContent =
+            t("authTitle");
+
+
+    const authSubtitle =
+        document.getElementById(
+            "authSubtitle"
+        );
+
+    if(authSubtitle)
+        authSubtitle.textContent =
+            t("authSubtitle");
+
+
+    document.getElementById("email")
+        .placeholder =
+        t("email");
+
+
+    document.getElementById("password")
+        .placeholder =
+        t("password");
+
+
+    document.getElementById("welcomeTitle")
+        .textContent =
+        t("appWelcome");
+
+
+    document.getElementById("welcomeText")
+        .textContent =
+        t("appDescription");
+
+
+    document.getElementById("messageInput")
+        .placeholder =
+        t("placeholder");
+
+}
+
+
+/* =========================================================
    ONBOARDING
-========================= */
+========================================================= */
 
 function showLanguage(){
 
-    document.getElementById("welcomeStep")
-        .classList.add("hidden");
+    document.getElementById(
+        "welcomeStep"
+    ).classList.add("hidden");
 
-    document.getElementById("languageStep")
-        .classList.remove("hidden");
+    document.getElementById(
+        "languageStep"
+    ).classList.remove("hidden");
 
 }
 
 
 function selectLanguage(lang,button){
 
-    selectedLanguage = lang;
+    selectedLanguage =
+        lang;
 
-    document.querySelectorAll(".language-btn")
-        .forEach(btn => btn.classList.remove("active"));
+    localStorage.setItem(
+        "siflowLanguage",
+        lang
+    );
+
+
+    document
+        .querySelectorAll(".language-btn")
+        .forEach(btn =>
+            btn.classList.remove("active")
+        );
+
 
     button.classList.add("active");
 
-    document.getElementById("continueLanguage")
-        .disabled = false;
+
+    document.getElementById(
+        "continueLanguage"
+    ).disabled = false;
 
 }
 
 
 function showAuth(){
 
-    if(!selectedLanguage) return;
+    if(!selectedLanguage)
+        return;
 
-    localStorage.setItem(
-        "siflowLanguage",
-        selectedLanguage
-    );
 
-    document.getElementById("onboarding")
-        .classList.add("hidden");
+    applyLanguage();
 
-    const auth = document.getElementById("auth");
+
+    document.getElementById(
+        "onboarding"
+    ).classList.add("hidden");
+
+
+    const auth =
+        document.getElementById("auth");
+
 
     auth.classList.remove("hidden");
 
-    auth.style.display = "flex";
+    auth.style.display =
+        "flex";
 
 }
 
 
-/* =========================
+/* =========================================================
    AUTH
-========================= */
+========================================================= */
 
 function toggleSignup(){
 
-    signupMode = !signupMode;
+    signupMode =
+        !signupMode;
+
 
     const title =
-        document.getElementById("authTitle");
+        document.getElementById(
+            "authTitle"
+        );
+
 
     const subtitle =
-        document.getElementById("authSubtitle");
+        document.getElementById(
+            "authSubtitle"
+        );
+
 
     const button =
-        document.querySelector(".auth-form button");
+        document.querySelector(
+            ".auth-form button"
+        );
+
 
     const switchArea =
-        document.querySelector(".auth-switch");
+        document.querySelector(
+            ".auth-switch"
+        );
+
 
     if(signupMode){
 
         title.textContent =
-            "Create your Siflow account";
+            t("signUp");
 
         subtitle.textContent =
-            "Join Siflow and start creating.";
+            selectedLanguage === "ar"
+                ? "أنشئ حسابك وابدأ استعمال Siflow"
+                : "Create your Siflow account";
 
         button.textContent =
-            "Create Account";
+            t("signUp");
+
 
         switchArea.innerHTML =
-        `Already have an account?
-        <button onclick="toggleSignup()">Sign In</button>`;
+            selectedLanguage === "ar"
+            ?
+            `لديك حساب بالفعل؟
+             <button onclick="toggleSignup()">تسجيل الدخول</button>`
+            :
+            `Already have an account?
+             <button onclick="toggleSignup()">Sign In</button>`;
 
     }else{
 
         title.textContent =
-            "Welcome to Siflow";
+            t("authTitle");
 
         subtitle.textContent =
-            "Sign in to continue";
+            t("authSubtitle");
 
         button.textContent =
-            "Sign In";
+            t("signIn");
+
 
         switchArea.innerHTML =
-        `Don't have an account?
-        <button onclick="toggleSignup()">Sign Up</button>`;
+            selectedLanguage === "ar"
+            ?
+            `ليس لديك حساب؟
+             <button onclick="toggleSignup()">إنشاء حساب</button>`
+            :
+            `Don't have an account?
+             <button onclick="toggleSignup()">Sign Up</button>`;
 
     }
 
@@ -1267,114 +2862,807 @@ function demoLogin(){
         "true"
     );
 
-    document.getElementById("auth")
-        .classList.add("hidden");
 
-    document.getElementById("app")
-        .classList.remove("hidden");
+    const email =
+        document.getElementById(
+            "email"
+        ).value.trim();
+
+
+    if(email){
+
+        localStorage.setItem(
+            "siflowUserEmail",
+            email
+        );
+
+    }
+
+
+    openApp();
 
 }
 
 
-/* =========================
-   CHAT
-========================= */
+/* =========================================================
+   OPEN APP
+========================================================= */
+
+function openApp(){
+
+    document.getElementById(
+        "onboarding"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+        "auth"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+        "app"
+    ).classList.remove("hidden");
+
+
+    applyLanguage();
+
+
+    const email =
+        localStorage.getItem(
+            "siflowUserEmail"
+        );
+
+
+    if(email){
+
+        document.getElementById(
+            "profileName"
+        ).textContent =
+            email.split("@")[0];
+
+    }
+
+
+    renderChatList();
+
+
+    if(!currentChatId){
+
+        newChat(false);
+
+    }
+
+}
+
+
+/* =========================================================
+   CHAT STORAGE
+========================================================= */
+
+function getChats(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "siflowChats"
+            )
+        ) || [];
+
+    }catch(e){
+
+        return [];
+
+    }
+
+}
+
+
+function saveChats(chats){
+
+    localStorage.setItem(
+        "siflowChats",
+        JSON.stringify(chats)
+    );
+
+}
+
+
+/* =========================================================
+   CREATE CHAT
+========================================================= */
+
+function createChat(){
+
+    const chats =
+        getChats();
+
+
+    const chat = {
+
+        id:
+            Date.now().toString(),
+
+        title:
+            selectedLanguage === "ar"
+                ? "محادثة جديدة"
+                : "New Chat",
+
+        messages:[],
+
+        createdAt:
+            Date.now()
+
+    };
+
+
+    chats.unshift(chat);
+
+    saveChats(chats);
+
+
+    return chat;
+
+}
+
+
+/* =========================================================
+   NEW CHAT
+========================================================= */
+
+function newChat(create=true){
+
+    if(create){
+
+        const chat =
+            createChat();
+
+        currentChatId =
+            chat.id;
+
+    }else{
+
+        const chats =
+            getChats();
+
+        if(chats.length){
+
+            currentChatId =
+                chats[0].id;
+
+        }else{
+
+            const chat =
+                createChat();
+
+            currentChatId =
+                chat.id;
+
+        }
+
+    }
+
+
+    document.getElementById(
+        "messages"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "welcome"
+    ).classList.remove("hidden");
+
+
+    document.getElementById(
+        "messageInput"
+    ).value = "";
+
+
+    selectedFile = null;
+
+    document.getElementById(
+        "filePreview"
+    ).classList.remove("show");
+
+
+    updateSendButton();
+
+
+    renderChatList();
+
+
+    closeSidebar();
+
+}
+
+
+/* =========================================================
+   LOAD CHAT
+========================================================= */
+
+function loadChatById(id){
+
+    const chats =
+        getChats();
+
+
+    const chat =
+        chats.find(
+            x => x.id === id
+        );
+
+
+    if(!chat)
+        return;
+
+
+    currentChatId =
+        id;
+
+
+    document.getElementById(
+        "welcome"
+    ).classList.add("hidden");
+
+
+    const messages =
+        document.getElementById(
+            "messages"
+        );
+
+
+    messages.innerHTML = "";
+
+
+    chat.messages.forEach(
+        message => {
+
+            addMessage(
+                message.text,
+                message.type,
+                false
+            );
+
+        }
+    );
+
+
+    renderChatList();
+
+
+    closeSidebar();
+
+
+    setTimeout(
+        scrollChat,
+        50
+    );
+
+}
+
+
+/* =========================================================
+   RENDER CHAT LIST
+========================================================= */
+
+function renderChatList(){
+
+    const list =
+        document.getElementById(
+            "chatList"
+        );
+
+
+    const chats =
+        getChats();
+
+
+    list.innerHTML = "";
+
+
+    if(!chats.length){
+
+        list.innerHTML =
+            `<div class="empty-search">
+                No conversations yet.
+             </div>`;
+
+        return;
+
+    }
+
+
+    const todayTitle =
+        document.createElement("div");
+
+    todayTitle.className =
+        "chat-group-title";
+
+    todayTitle.textContent =
+        t("today");
+
+    list.appendChild(
+        todayTitle
+    );
+
+
+    chats.forEach(
+        chat => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "chat-item" +
+                (
+                    chat.id === currentChatId
+                    ? " active"
+                    : ""
+                );
+
+
+            item.textContent =
+                chat.title;
+
+
+            item.onclick =
+                () =>
+                loadChatById(
+                    chat.id
+                );
+
+
+            list.appendChild(item);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE CHAT TITLE
+========================================================= */
+
+function updateChatTitle(text){
+
+    if(!currentChatId)
+        return;
+
+
+    const chats =
+        getChats();
+
+
+    const chat =
+        chats.find(
+            x =>
+            x.id === currentChatId
+        );
+
+
+    if(!chat)
+        return;
+
+
+    if(
+        chat.title === "New Chat" ||
+        chat.title === "محادثة جديدة"
+    ){
+
+        chat.title =
+            text.length > 30
+            ? text.substring(0,30) + "..."
+            : text;
+
+    }
+
+
+    saveChats(chats);
+
+    renderChatList();
+
+}
+
+
+/* =========================================================
+   SEND MESSAGE
+========================================================= */
 
 function sendMessage(){
 
     const input =
-        document.getElementById("messageInput");
+        document.getElementById(
+            "messageInput"
+        );
+
 
     const text =
         input.value.trim();
 
-    if(!text) return;
 
-    document.getElementById("welcome")
-        .classList.add("hidden");
+    if(!text)
+        return;
 
-    addMessage(text,"user");
+
+    if(!currentChatId){
+
+        const chat =
+            createChat();
+
+        currentChatId =
+            chat.id;
+
+    }
+
+
+    document.getElementById(
+        "welcome"
+    ).classList.add("hidden");
+
+
+    addMessage(
+        text,
+        "user",
+        true
+    );
+
+
+    updateChatTitle(text);
+
 
     input.value = "";
 
-    setTimeout(() => {
 
-        addMessage(
-            "Hello! I'm Siflow. 🤖\n\n" +
-            "This is the demo version of Siflow Chat. " +
-            "The real AI model can be connected later through a secure backend.",
-            "ai"
-        );
+    updateSendButton();
 
-    },700);
+
+    showTyping();
+
+
+    setTimeout(
+        () => {
+
+            removeTyping();
+
+
+            const response =
+                getDemoResponse(text);
+
+
+            addMessage(
+                response,
+                "ai",
+                true
+            );
+
+        },
+        850
+    );
 
 }
 
 
-function addMessage(text,type){
+/* =========================================================
+   DEMO AI RESPONSE
+========================================================= */
+
+function getDemoResponse(text){
+
+    if(selectedLanguage === "ar"){
+
+        return (
+            "مرحباً! أنا Siflow 🤖\n\n" +
+            "وصلتني رسالتك:\n" +
+            "«" + text + "»\n\n" +
+            "هذه حالياً نسخة تجريبية من Siflow Chat. " +
+            "واجهة المحادثة وحفظ المحادثات يعملان، " +
+            "أما الذكاء الاصطناعي الحقيقي فسنربطه لاحقاً " +
+            "من خلال Backend آمن."
+        );
+
+    }
+
+
+    if(selectedLanguage === "fr"){
+
+        return (
+            "Bonjour ! Je suis Siflow 🤖\n\n" +
+            "J'ai reçu votre message :\n" +
+            "«" + text + "»\n\n" +
+            "Ceci est actuellement la version démo de Siflow Chat. " +
+            "L'IA réelle sera connectée plus tard via un backend sécurisé."
+        );
+
+    }
+
+
+    return (
+        "Hello! I'm Siflow 🤖\n\n" +
+        "I received your message:\n" +
+        "“" + text + "”\n\n" +
+        "This is currently the demo version of Siflow Chat. " +
+        "The real AI model will be connected later through a secure backend."
+    );
+
+}
+
+
+/* =========================================================
+   ADD MESSAGE
+========================================================= */
+
+function addMessage(
+    text,
+    type,
+    save=true
+){
 
     const messages =
-        document.getElementById("messages");
+        document.getElementById(
+            "messages"
+        );
+
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     div.className =
         "message " +
-        (type === "user"
+        (
+            type === "user"
             ? "user-message"
-            : "");
+            : ""
+        );
+
 
     const avatar =
         type === "user"
-            ? "S"
-            : "✦";
+        ? "S"
+        : "✦";
+
 
     const name =
         type === "user"
-            ? "You"
-            : "Siflow";
+        ? "You"
+        : "Siflow";
+
+
+    const avatarDiv =
+        document.createElement(
+            "div"
+        );
+
+
+    avatarDiv.className =
+        "message-avatar";
+
+
+    avatarDiv.textContent =
+        avatar;
+
+
+    const content =
+        document.createElement(
+            "div"
+        );
+
+
+    content.className =
+        "message-content";
+
+
+    const nameDiv =
+        document.createElement(
+            "div"
+        );
+
+
+    nameDiv.className =
+        "message-name";
+
+
+    nameDiv.textContent =
+        name;
+
+
+    const textDiv =
+        document.createElement(
+            "div"
+        );
+
+
+    textDiv.textContent =
+        text;
+
+
+    content.appendChild(
+        nameDiv
+    );
+
+    content.appendChild(
+        textDiv
+    );
+
+
+    div.appendChild(
+        avatarDiv
+    );
+
+    div.appendChild(
+        content
+    );
+
+
+    messages.appendChild(
+        div
+    );
+
+
+    if(save){
+
+        saveMessage(
+            text,
+            type
+        );
+
+    }
+
+
+    scrollChat();
+
+}
+
+
+/* =========================================================
+   SAVE MESSAGE
+========================================================= */
+
+function saveMessage(
+    text,
+    type
+){
+
+    if(!currentChatId)
+        return;
+
+
+    const chats =
+        getChats();
+
+
+    const chat =
+        chats.find(
+            x =>
+            x.id === currentChatId
+        );
+
+
+    if(!chat)
+        return;
+
+
+    chat.messages.push({
+
+        text:text,
+
+        type:type,
+
+        time:Date.now()
+
+    });
+
+
+    saveChats(chats);
+
+
+    renderChatList();
+
+}
+
+
+/* =========================================================
+   TYPING
+========================================================= */
+
+function showTyping(){
+
+    const messages =
+        document.getElementById(
+            "messages"
+        );
+
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.id =
+        "typingMessage";
+
+
+    div.className =
+        "message";
+
 
     div.innerHTML = `
+
         <div class="message-avatar">
-            ${avatar}
+            ✦
         </div>
 
         <div class="message-content">
 
             <div class="message-name">
-                ${name}
+                Siflow
             </div>
 
-            <div>
-                ${escapeHTML(text)}
+            <div class="typing">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
             </div>
 
         </div>
     `;
 
-    messages.appendChild(div);
 
-    const chatArea =
-        document.getElementById("chatArea");
+    messages.appendChild(
+        div
+    );
 
-    chatArea.scrollTop =
-        chatArea.scrollHeight;
+
+    scrollChat();
+
+}
+
+
+function removeTyping(){
+
+    const typing =
+        document.getElementById(
+            "typingMessage"
+        );
+
+
+    if(typing)
+        typing.remove();
 
 }
 
 
-function escapeHTML(text){
+/* =========================================================
+   SCROLL
+========================================================= */
 
-    const div =
-        document.createElement("div");
+function scrollChat(){
 
-    div.textContent = text;
+    const area =
+        document.getElementById(
+            "chatArea"
+        );
 
-    return div.innerHTML;
+
+    area.scrollTop =
+        area.scrollHeight;
 
 }
 
+
+/* =========================================================
+   ENTER
+========================================================= */
 
 function handleKey(event){
 
@@ -1392,122 +3680,193 @@ function handleKey(event){
 }
 
 
-/* =========================
-   NEW CHAT
-========================= */
+/* =========================================================
+   SEND BUTTON
+========================================================= */
 
-function newChat(){
+function updateSendButton(){
 
-    document.getElementById("messages")
-        .innerHTML = "";
-
-    document.getElementById("welcome")
-        .classList.remove("hidden");
-
-    document.getElementById("messageInput")
-        .value = "";
-
-    document.querySelectorAll(".chat-item")
-        .forEach(item =>
-            item.classList.remove("active")
+    const input =
+        document.getElementById(
+            "messageInput"
         );
+
+
+    const button =
+        document.getElementById(
+            "sendButton"
+        );
+
+
+    button.disabled =
+        !input.value.trim();
 
 }
 
 
-/* =========================
+/* =========================================================
    TOOLS
-========================= */
+========================================================= */
 
 function useTool(tool){
 
     const input =
-        document.getElementById("messageInput");
+        document.getElementById(
+            "messageInput"
+        );
+
 
     const prompts = {
 
         Code:
-        "Help me with coding.",
+            selectedLanguage === "ar"
+            ? "ساعدني في البرمجة."
+            : "Help me with coding.",
 
         Learn:
-        "Help me understand a topic.",
+            selectedLanguage === "ar"
+            ? "ساعدني أفهم موضوعاً."
+            : "Help me understand a topic.",
 
         Write:
-        "Help me write something.",
+            selectedLanguage === "ar"
+            ? "ساعدني في كتابة نص."
+            : "Help me write something.",
 
         Create:
-        "Help me create something.",
+            selectedLanguage === "ar"
+            ? "ساعدني في إنشاء شيء جديد."
+            : "Help me create something.",
 
         Research:
-        "Help me research a topic.",
+            selectedLanguage === "ar"
+            ? "ساعدني في البحث عن موضوع."
+            : "Help me research a topic.",
 
         Analyze:
-        "I want to analyze a file."
+            selectedLanguage === "ar"
+            ? "أريد تحليل ملف."
+            : "I want to analyze a file."
 
     };
 
-    input.value = prompts[tool];
+
+    input.value =
+        prompts[tool] ||
+        "";
+
+
+    updateSendButton();
+
 
     input.focus();
 
 }
 
 
-/* =========================
-   SIDEBAR
-========================= */
+/* =========================================================
+   FILE
+========================================================= */
 
-function toggleSidebar(){
+function handleFile(input){
 
-    document.getElementById("sidebar")
-        .classList.toggle("open");
+    if(!input.files.length)
+        return;
+
+
+    selectedFile =
+        input.files[0];
+
+
+    const preview =
+        document.getElementById(
+            "filePreview"
+        );
+
+
+    preview.textContent =
+        "📎 " +
+        selectedFile.name;
+
+
+    preview.classList.add(
+        "show"
+    );
 
 }
 
 
-function loadChat(item){
+/* =========================================================
+   VOICE DEMO
+========================================================= */
 
-    document.querySelectorAll(".chat-item")
-        .forEach(x =>
-            x.classList.remove("active")
+function voiceDemo(){
+
+    if(
+        "webkitSpeechRecognition"
+        in window
+    ){
+
+        alert(
+            selectedLanguage === "ar"
+            ?
+            "يمكن تفعيل التعرف على الصوت الكامل في المرحلة القادمة."
+            :
+            "Full voice recognition can be connected in the next stage."
         );
 
-    item.classList.add("active");
+    }else{
 
-    document.getElementById("welcome")
-        .classList.add("hidden");
-
-    document.getElementById("messages")
-        .innerHTML = "";
-
-    addMessage(
-        "This is a saved conversation: " +
-        item.textContent.trim(),
-        "ai"
-    );
-
-    if(window.innerWidth <= 800){
-
-        document.getElementById("sidebar")
-            .classList.remove("open");
+        alert(
+            selectedLanguage === "ar"
+            ?
+            "التعرف على الصوت غير متوفر في هذا المتصفح."
+            :
+            "Voice recognition is not available in this browser."
+        );
 
     }
 
 }
 
 
-/* =========================
-   SEARCH
-========================= */
+/* =========================================================
+   WEB DEMO
+========================================================= */
+
+function webDemo(){
+
+    alert(
+
+        selectedLanguage === "ar"
+        ?
+        "البحث في الويب سيتم ربطه لاحقاً بمحرك بحث وBackend."
+        :
+        "Web Search will be connected later through a backend."
+
+    );
+
+}
+
+
+/* =========================================================
+   SEARCH CHATS
+========================================================= */
 
 function searchChats(){
 
     const query =
-        document.getElementById("searchInput")
-        .value
-        .toLowerCase();
+        document.getElementById(
+            "searchInput"
+        ).value
+        .toLowerCase()
+        .trim();
 
-    document.querySelectorAll(".chat-item")
+
+    document
+        .querySelectorAll(
+            ".chat-item"
+        )
         .forEach(item => {
 
             item.style.display =
@@ -1522,44 +3881,183 @@ function searchChats(){
 }
 
 
-/* =========================
+/* =========================================================
+   DELETE CURRENT CHAT
+========================================================= */
+
+function deleteCurrentChat(){
+
+    if(!currentChatId)
+        return;
+
+
+    const chats =
+        getChats();
+
+
+    const filtered =
+        chats.filter(
+            x =>
+            x.id !== currentChatId
+        );
+
+
+    saveChats(filtered);
+
+
+    currentChatId =
+        null;
+
+
+    document.getElementById(
+        "messages"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "welcome"
+    ).classList.remove("hidden");
+
+
+    renderChatList();
+
+
+    newChat(false);
+
+}
+
+
+/* =========================================================
+   CLEAR ALL
+========================================================= */
+
+function clearAllChats(){
+
+    const ok =
+        confirm(
+            selectedLanguage === "ar"
+            ?
+            "هل تريد حذف جميع المحادثات؟"
+            :
+            "Delete all conversations?"
+        );
+
+
+    if(!ok)
+        return;
+
+
+    localStorage.removeItem(
+        "siflowChats"
+    );
+
+
+    currentChatId =
+        null;
+
+
+    closeSettings();
+
+
+    newChat(false);
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function toggleSidebar(){
+
+    document.getElementById(
+        "sidebar"
+    ).classList.toggle("open");
+
+
+    document.getElementById(
+        "sidebarOverlay"
+    ).classList.toggle("show");
+
+}
+
+
+function closeSidebar(){
+
+    document.getElementById(
+        "sidebar"
+    ).classList.remove("open");
+
+
+    document.getElementById(
+        "sidebarOverlay"
+    ).classList.remove("show");
+
+}
+
+
+/* =========================================================
    SETTINGS
-========================= */
+========================================================= */
 
 function openSettings(){
 
-    document.getElementById("settingsModal")
-        .classList.remove("hidden");
+    document.getElementById(
+        "settingsModal"
+    ).classList.remove("hidden");
 
 }
 
 
 function closeSettings(){
 
-    document.getElementById("settingsModal")
-        .classList.add("hidden");
+    document.getElementById(
+        "settingsModal"
+    ).classList.add("hidden");
 
 }
 
 
-function setTheme(theme,button){
+/* =========================================================
+   THEME
+========================================================= */
 
-    document.querySelectorAll(".theme-btn")
-        .forEach(x =>
-            x.classList.remove("active")
+function setTheme(
+    theme,
+    button
+){
+
+    document
+        .querySelectorAll(
+            ".theme-btn"
+        )
+        .forEach(
+            x =>
+            x.classList.remove(
+                "active"
+            )
         );
 
-    button.classList.add("active");
+
+    button.classList.add(
+        "active"
+    );
+
 
     if(theme === "light"){
 
-        document.body.classList.add("light");
+        document.body.classList.add(
+            "light"
+        );
 
     }else{
 
-        document.body.classList.remove("light");
+        document.body.classList.remove(
+            "light"
+        );
 
     }
+
 
     localStorage.setItem(
         "siflowTheme",
@@ -1569,9 +4067,71 @@ function setTheme(theme,button){
 }
 
 
-/* =========================
+/* =========================================================
+   CHANGE LANGUAGE
+========================================================= */
+
+function changeLanguage(){
+
+    closeSettings();
+
+
+    document.getElementById(
+        "app"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+        "onboarding"
+    ).classList.remove("hidden");
+
+
+    document.getElementById(
+        "welcomeStep"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+        "languageStep"
+    ).classList.remove("hidden");
+
+
+    document
+        .querySelectorAll(
+            ".language-btn"
+        )
+        .forEach(
+            btn =>
+            btn.classList.remove(
+                "active"
+            )
+        );
+
+
+    const selected =
+        document.querySelector(
+            `.language-btn[onclick*="'${selectedLanguage}'"]`
+        );
+
+
+    if(selected){
+
+        selected.classList.add(
+            "active"
+        );
+
+        document.getElementById(
+            "continueLanguage"
+        ).disabled = false;
+
+    }
+
+}
+
+
+/* =========================================================
    LOGOUT
-========================= */
+========================================================= */
 
 function logout(){
 
@@ -1579,51 +4139,130 @@ function logout(){
         "siflowLoggedIn"
     );
 
+
     location.reload();
 
 }
 
 
-/* =========================
+/* =========================================================
    STARTUP
-========================= */
+========================================================= */
 
-window.addEventListener("load",()=>{
+window.addEventListener(
+    "load",
+    () => {
 
-    const theme =
-        localStorage.getItem("siflowTheme");
 
-    if(theme === "light"){
+        /* THEME */
 
-        document.body.classList.add("light");
+        const theme =
+            localStorage.getItem(
+                "siflowTheme"
+            );
 
-        document.querySelectorAll(".theme-btn")
-            .forEach((btn,index)=>{
-                btn.classList.toggle(
-                    "active",
-                    index === 1
+
+        if(theme === "light"){
+
+            document.body.classList.add(
+                "light"
+            );
+
+
+            document
+                .querySelectorAll(
+                    ".theme-btn"
+                )
+                .forEach(
+                    (btn,index) => {
+
+                        btn.classList.toggle(
+                            "active",
+                            index === 1
+                        );
+
+                    }
                 );
-            });
+
+        }
+
+
+        /* LANGUAGE */
+
+        if(selectedLanguage){
+
+            applyLanguage();
+
+        }
+
+
+        /* LOGIN */
+
+        const logged =
+            localStorage.getItem(
+                "siflowLoggedIn"
+            );
+
+
+        if(logged === "true"){
+
+            openApp();
+
+        }
 
     }
+);
 
-    const logged =
-        localStorage.getItem("siflowLoggedIn");
 
-    if(logged === "true"){
+/* =========================================================
+   CLOSE MODAL BY CLICKING OUTSIDE
+========================================================= */
 
-        document.getElementById("onboarding")
-            .classList.add("hidden");
+document
+    .getElementById(
+        "settingsModal"
+    )
+    .addEventListener(
+        "click",
+        function(event){
 
-        document.getElementById("auth")
-            .classList.add("hidden");
+            if(
+                event.target === this
+            ){
 
-        document.getElementById("app")
-            .classList.remove("hidden");
+                closeSettings();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   AUTO RESIZE TEXTAREA
+========================================================= */
+
+const textarea =
+    document.getElementById(
+        "messageInput"
+    );
+
+
+textarea.addEventListener(
+    "input",
+    function(){
+
+        this.style.height =
+            "auto";
+
+        this.style.height =
+            Math.min(
+                this.scrollHeight,
+                180
+            ) + "px";
 
     }
-
-});
+);
 
 </script>
 
