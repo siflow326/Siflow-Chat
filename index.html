@@ -353,7 +353,7 @@ textarea{
 }
 
 /* =========================================================
-   ONBOARDING (Fixed Scrolling & Layout)
+   ONBOARDING
 ========================================================= */
 
 #onboarding{
@@ -476,6 +476,9 @@ textarea{
 #auth{
 
     min-height:100dvh;
+    height:100dvh;
+
+    display:none; /* تحكم فيه عبر الـ JS */
 
     align-items:center;
 
@@ -569,7 +572,7 @@ textarea{
 
     height:100dvh;
 
-    display:flex;
+    display:none; /* تحكم فيه عبر الـ JS */
 }
 
 .sidebar{
@@ -740,9 +743,7 @@ textarea{
 
     justify-content:space-between;
 
-    padding:
-        0
-        22px;
+    padding:0 22px;
 
     border-bottom:1px solid var(--border);
 
@@ -1019,7 +1020,7 @@ textarea{
 }
 
 /* =========================================================
-   INPUT
+   INPUT BOX
 ========================================================= */
 
 .input-wrapper{
@@ -1124,7 +1125,7 @@ textarea{
 }
 
 /* =========================================================
-   EMPTY CHAT
+   EMPTY SEARCH
 ========================================================= */
 
 .empty-search{
@@ -1427,10 +1428,7 @@ body.rtl .search input{
 
     .chat-area{
 
-        padding:
-            18px
-            12px
-            10px;
+        padding:18px 12px 10px;
     }
 
     .welcome{
@@ -1466,13 +1464,7 @@ body.rtl .search input{
 
     .input-wrapper{
 
-        padding:
-            8px
-            10px
-            max(
-                10px,
-                env(safe-area-inset-bottom)
-            );
+        padding:8px 10px max(10px, env(safe-area-inset-bottom));
     }
 
     .input-box{
@@ -1539,7 +1531,6 @@ body.rtl .search input{
 
         font-size:26px;
     }
-
 }
 
 /* =========================================================
@@ -1639,9 +1630,7 @@ body.rtl .search input{
 
                     🇬🇧 English
 
-                    <small>
-                        English
-                    </small>
+                    <small>English</small>
 
                 </button>
 
@@ -1652,9 +1641,7 @@ body.rtl .search input{
 
                     🇩🇿 العربية
 
-                    <small>
-                        Arabic
-                    </small>
+                    <small>Arabic</small>
 
                 </button>
 
@@ -1665,9 +1652,7 @@ body.rtl .search input{
 
                     🇫🇷 Français
 
-                    <small>
-                        French
-                    </small>
+                    <small>French</small>
 
                 </button>
 
@@ -1678,9 +1663,7 @@ body.rtl .search input{
 
                     🇪🇸 Español
 
-                    <small>
-                        Spanish
-                    </small>
+                    <small>Spanish</small>
 
                 </button>
 
@@ -1691,9 +1674,7 @@ body.rtl .search input{
 
                     🇩🇪 Deutsch
 
-                    <small>
-                        German
-                    </small>
+                    <small>German</small>
 
                 </button>
 
@@ -1704,9 +1685,7 @@ body.rtl .search input{
 
                     🇹🇷 Türkçe
 
-                    <small>
-                        Turkish
-                    </small>
+                    <small>Turkish</small>
 
                 </button>
 
@@ -1717,9 +1696,7 @@ body.rtl .search input{
 
                     🇯🇵 日本語
 
-                    <small>
-                        Japanese
-                    </small>
+                    <small>Japanese</small>
 
                 </button>
 
@@ -1730,9 +1707,7 @@ body.rtl .search input{
 
                     🇨🇳 中文
 
-                    <small>
-                        Chinese
-                    </small>
+                    <small>Chinese</small>
 
                 </button>
 
@@ -1760,9 +1735,7 @@ body.rtl .search input{
      AUTH
 ======================================================= -->
 
-<section
-    id="auth"
-    class="hidden">
+<section id="auth" class="hidden">
 
     <div class="auth-card">
 
@@ -1784,12 +1757,8 @@ body.rtl .search input{
         </h1>
 
 
-        <div
-            class="subtitle"
-            id="authSubtitle">
-
+        <div class="subtitle" id="authSubtitle">
             Sign in to continue
-
         </div>
 
 
@@ -1851,16 +1820,12 @@ body.rtl .search input{
      APP
 ======================================================= -->
 
-<section
-    id="app"
-    class="hidden">
+<section id="app" class="hidden">
 
 
     <!-- SIDEBAR -->
 
-    <aside
-        class="sidebar"
-        id="sidebar">
+    <aside class="sidebar" id="sidebar">
 
 
         <div class="sidebar-top">
@@ -1985,14 +1950,10 @@ body.rtl .search input{
 
         <!-- CHAT AREA -->
 
-        <div
-            class="chat-area"
-            id="chatArea">
+        <div class="chat-area" id="chatArea">
 
 
-            <div
-                class="welcome"
-                id="welcome">
+            <div class="welcome" id="welcome">
 
                 <h1 id="welcomeTitle">
                     What can I help you with?
@@ -2012,13 +1973,9 @@ body.rtl .search input{
                         class="tool"
                         onclick="useTool('Code')">
 
-                        <strong>
-                            💻 Code
-                        </strong>
+                        <strong>💻 Code</strong>
 
-                        <span>
-                            Write and explain code
-                        </span>
+                        <span>Write and explain code</span>
 
                     </button>
 
@@ -2027,13 +1984,9 @@ body.rtl .search input{
                         class="tool"
                         onclick="useTool('Learn')">
 
-                        <strong>
-                            📚 Learn
-                        </strong>
+                        <strong>📚 Learn</strong>
 
-                        <span>
-                            Understand difficult topics
-                        </span>
+                        <span>Understand difficult topics</span>
 
                     </button>
 
@@ -2042,13 +1995,9 @@ body.rtl .search input{
                         class="tool"
                         onclick="useTool('Write')">
 
-                        <strong>
-                            ✍️ Write
-                        </strong>
+                        <strong>✍️ Write</strong>
 
-                        <span>
-                            Create and improve text
-                        </span>
+                        <span>Create and improve text</span>
 
                     </button>
 
@@ -2057,13 +2006,9 @@ body.rtl .search input{
                         class="tool"
                         onclick="useTool('Create')">
 
-                        <strong>
-                            🎨 Create
-                        </strong>
+                        <strong>🎨 Create</strong>
 
-                        <span>
-                            Turn ideas into creations
-                        </span>
+                        <span>Turn ideas into creations</span>
 
                     </button>
 
@@ -2072,13 +2017,9 @@ body.rtl .search input{
                         class="tool"
                         onclick="useTool('Research')">
 
-                        <strong>
-                            🔎 Research
-                        </strong>
+                        <strong>🔎 Research</strong>
 
-                        <span>
-                            Explore information
-                        </span>
+                        <span>Explore information</span>
 
                     </button>
 
@@ -2087,13 +2028,9 @@ body.rtl .search input{
                         class="tool"
                         onclick="useTool('Analyze')">
 
-                        <strong>
-                            📄 Analyze
-                        </strong>
+                        <strong>📄 Analyze</strong>
 
-                        <span>
-                            Analyze your files
-                        </span>
+                        <span>Analyze your files</span>
 
                     </button>
 
@@ -2103,9 +2040,7 @@ body.rtl .search input{
             </div>
 
 
-            <div
-                class="messages"
-                id="messages">
+            <div class="messages" id="messages">
             </div>
 
 
@@ -2117,13 +2052,10 @@ body.rtl .search input{
         <div class="input-wrapper">
 
 
-            <div
-                class="input-box">
+            <div class="input-box">
 
 
-                <div
-                    id="filePreview"
-                    class="file-preview">
+                <div id="filePreview" class="file-preview">
                 </div>
 
 
@@ -2197,10 +2129,8 @@ body.rtl .search input{
 
 
             <div class="footer-note">
-
                 Siflow can make mistakes.
                 Check important information.
-
             </div>
 
         </div>
@@ -2214,9 +2144,7 @@ body.rtl .search input{
      SETTINGS
 ======================================================= -->
 
-<div
-    id="settingsModal"
-    class="modal hidden">
+<div id="settingsModal" class="modal hidden">
 
 
     <div class="modal-card">
@@ -2224,10 +2152,7 @@ body.rtl .search input{
 
         <div class="modal-header">
 
-            <h2>
-                Settings
-            </h2>
-
+            <h2>Settings</h2>
 
             <button
                 class="close-btn"
@@ -2351,14 +2276,10 @@ body.rtl .search input{
             </div>
 
             <div class="setting-desc">
-
                 Siflow Chat — Your AI.
                 Your Ideas. Your World.
-
                 <br><br>
-
                 Version 1.0 Demo
-
             </div>
 
         </div>
@@ -2392,201 +2313,75 @@ let selectedFile = null;
 const translations = {
 
     en: {
-
-        welcome:
-            "Welcome to Siflow",
-
-        welcomeDescription:
-            "Your AI. Your Ideas. Your World.",
-
-        choose:
-            "Choose your language",
-
-        chooseDescription:
-            "Select the language you want to use with Siflow.",
-
-        continue:
-            "Continue →",
-
-        authTitle:
-            "Welcome to Siflow",
-
-        authSubtitle:
-            "Sign in to continue",
-
-        email:
-            "Email",
-
-        password:
-            "Password",
-
-        signIn:
-            "Sign In",
-
-        signUp:
-            "Sign Up",
-
-        appWelcome:
-            "What can I help you with?",
-
-        appDescription:
-            "Ask Siflow anything. Learn, create, code and explore.",
-
-        placeholder:
-            "Ask Siflow anything...",
-
-        today:
-            "Today",
-
-        yesterday:
-            "Yesterday"
-
+        welcome: "Welcome to Siflow",
+        welcomeDescription: "Your AI. Your Ideas. Your World.",
+        choose: "Choose your language",
+        chooseDescription: "Select the language you want to use with Siflow.",
+        continue: "Continue →",
+        authTitle: "Welcome to Siflow",
+        authSubtitle: "Sign in to continue",
+        email: "Email",
+        password: "Password",
+        signIn: "Sign In",
+        signUp: "Sign Up",
+        appWelcome: "What can I help you with?",
+        appDescription: "Ask Siflow anything. Learn, create, code and explore.",
+        placeholder: "Ask Siflow anything...",
+        today: "Today",
+        yesterday: "Yesterday"
     },
-
 
     ar: {
-
-        welcome:
-            "مرحباً بك في Siflow",
-
-        welcomeDescription:
-            "ذكاؤك الاصطناعي. أفكارك. عالمك.",
-
-        choose:
-            "اختر لغتك",
-
-        chooseDescription:
-            "اختر اللغة التي تريد استعمالها مع Siflow.",
-
-        continue:
-            "متابعة ←",
-
-        authTitle:
-            "مرحباً بك في Siflow",
-
-        authSubtitle:
-            "سجّل الدخول للمتابعة",
-
-        email:
-            "البريد الإلكتروني",
-
-        password:
-            "كلمة المرور",
-
-        signIn:
-            "تسجيل الدخول",
-
-        signUp:
-            "إنشاء حساب",
-
-        appWelcome:
-            "كيف يمكنني مساعدتك؟",
-
-        appDescription:
-            "اسأل Siflow عن أي شيء. تعلّم، أنشئ، برمج واستكشف.",
-
-        placeholder:
-            "اسأل Siflow أي شيء...",
-
-        today:
-            "اليوم",
-
-        yesterday:
-            "الأمس"
-
+        welcome: "مرحباً بك في Siflow",
+        welcomeDescription: "ذكاؤك الاصطناعي. أفكارك. عالمك.",
+        choose: "اختر لغتك",
+        chooseDescription: "اختر اللغة التي تريد استعمالها مع Siflow.",
+        continue: "متابعة ←",
+        authTitle: "مرحباً بك في Siflow",
+        authSubtitle: "سجّل الدخول للمتابعة",
+        email: "البريد الإلكتروني",
+        password: "كلمة المرور",
+        signIn: "تسجيل الدخول",
+        signUp: "إنشاء حساب",
+        appWelcome: "كيف يمكنني مساعدتك؟",
+        appDescription: "اسأل Siflow عن أي شيء. تعلّم، أنشئ، برمج واستكشف.",
+        placeholder: "اسأل Siflow أي شيء...",
+        today: "اليوم",
+        yesterday: "الأمس"
     },
 
-
     fr: {
-
-        welcome:
-            "Bienvenue sur Siflow",
-
-        welcomeDescription:
-            "Votre IA. Vos idées. Votre monde.",
-
-        choose:
-            "Choisissez votre langue",
-
-        chooseDescription:
-            "Sélectionnez la langue que vous voulez utiliser.",
-
-        continue:
-            "Continuer →",
-
-        authTitle:
-            "Bienvenue sur Siflow",
-
-        authSubtitle:
-            "Connectez-vous pour continuer",
-
-        email:
-            "E-mail",
-
-        password:
-            "Mot de passe",
-
-        signIn:
-            "Connexion",
-
-        signUp:
-            "Créer un compte",
-
-        appWelcome:
-            "Comment puis-je vous aider ?",
-
-        appDescription:
-            "Demandez n'importe quoi à Siflow. Apprenez, créez, codez et explorez.",
-
-        placeholder:
-            "Demandez quelque chose à Siflow..."
-
+        welcome: "Bienvenue sur Siflow",
+        welcomeDescription: "Votre IA. Vos idées. Votre monde.",
+        choose: "Choisissez votre langue",
+        chooseDescription: "Sélectionnez la langue que vous voulez utiliser.",
+        continue: "Continuer →",
+        authTitle: "Bienvenue sur Siflow",
+        authSubtitle: "Connectez-vous pour continuer",
+        email: "E-mail",
+        password: "Mot de passe",
+        signIn: "Connexion",
+        signUp: "Créer un compte",
+        appWelcome: "Comment puis-je vous aider ?",
+        appDescription: "Demandez n'importe quoi à Siflow. Apprenez, créez, codez et explorez.",
+        placeholder: "Demandez quelque chose à Siflow..."
     },
 
     es: {
-
-        welcome:
-            "Bienvenido a Siflow",
-
-        welcomeDescription:
-            "Tu IA. Tus ideas. Tu mundo.",
-
-        choose:
-            "Elige tu idioma",
-
-        chooseDescription:
-            "Selecciona el idioma que quieres utilizar.",
-
-        continue:
-            "Continuar →",
-
-        authTitle:
-            "Bienvenido a Siflow",
-
-        authSubtitle:
-            "Inicia sesión para continuar",
-
-        email:
-            "Correo electrónico",
-
-        password:
-            "Contraseña",
-
-        signIn:
-            "Iniciar sesión",
-
-        signUp:
-            "Crear cuenta",
-
-        appWelcome:
-            "¿En qué puedo ayudarte?",
-
-        appDescription:
-            "Pregunta a Siflow cualquier cosa. Aprende, crea, programa y explora.",
-
-        placeholder:
-            "Pregunta cualquier cosa a Siflow..."
-
+        welcome: "Bienvenido a Siflow",
+        welcomeDescription: "Tu IA. Tus ideas. Tu mundo.",
+        choose: "Elige tu idioma",
+        chooseDescription: "Selecciona el idioma que quieres utilizar.",
+        continue: "Continuar →",
+        authTitle: "Bienvenido a Siflow",
+        authSubtitle: "Inicia sesión para continuar",
+        email: "Correo electrónico",
+        password: "Contraseña",
+        signIn: "Iniciar sesión",
+        signUp: "Crear cuenta",
+        appWelcome: "¿En qué puedo ayudarte?",
+        appDescription: "Pregunta a Siflow cualquier cosa. Aprende, crea, programa y explora.",
+        placeholder: "Pregunta cualquier cosa a Siflow..."
     }
 
 };
@@ -2597,16 +2392,8 @@ const translations = {
 ========================================================= */
 
 function t(key){
-
-    const lang =
-        selectedLanguage || "en";
-
-    return (
-        translations[lang] &&
-        translations[lang][key]
-    ) ||
-    translations.en[key] ||
-    key;
+    const lang = selectedLanguage || "en";
+    return (translations[lang] && translations[lang][key]) || translations.en[key] || key;
 }
 
 
@@ -2615,115 +2402,42 @@ function t(key){
 ========================================================= */
 
 function applyLanguage(){
+    if(!selectedLanguage) return;
 
-    if(!selectedLanguage)
-        return;
-
-    const lang =
-        selectedLanguage;
+    const lang = selectedLanguage;
 
     if(lang === "ar"){
-
         document.body.classList.add("rtl");
-
-        document.documentElement.dir =
-            "rtl";
-
-        document.documentElement.lang =
-            "ar";
-
+        document.documentElement.dir = "rtl";
+        document.documentElement.lang = "ar";
     }else{
-
         document.body.classList.remove("rtl");
-
-        document.documentElement.dir =
-            "ltr";
-
-        document.documentElement.lang =
-            lang;
-
+        document.documentElement.dir = "ltr";
+        document.documentElement.lang = lang;
     }
 
+    const welcomeStep = document.querySelector("#welcomeStep h1");
+    if(welcomeStep) welcomeStep.textContent = t("welcome");
 
-    const welcomeStep =
-        document.querySelector(
-            "#welcomeStep h1"
-        );
-
-    if(welcomeStep)
-        welcomeStep.textContent =
-            t("welcome");
-
-
-    const welcomeDescription =
-        document.querySelector(
-            "#welcomeStep p"
-        );
-
+    const welcomeDescription = document.querySelector("#welcomeStep p");
     if(welcomeDescription){
-
-        welcomeDescription.innerHTML =
-            t("welcomeDescription") +
-            "<br>" +
-            "A modern AI assistant designed to help you learn, create and explore.";
-
+        welcomeDescription.innerHTML = t("welcomeDescription") + "<br>A modern AI assistant designed to help you learn, create and explore.";
     }
 
+    const continueButton = document.getElementById("continueLanguage");
+    if(continueButton) continueButton.textContent = t("continue");
 
-    const continueButton =
-        document.getElementById(
-            "continueLanguage"
-        );
+    const authTitle = document.getElementById("authTitle");
+    if(authTitle) authTitle.textContent = t("authTitle");
 
-    if(continueButton)
-        continueButton.textContent =
-            t("continue");
+    const authSubtitle = document.getElementById("authSubtitle");
+    if(authSubtitle) authSubtitle.textContent = t("authSubtitle");
 
-
-    const authTitle =
-        document.getElementById(
-            "authTitle"
-        );
-
-    if(authTitle)
-        authTitle.textContent =
-            t("authTitle");
-
-
-    const authSubtitle =
-        document.getElementById(
-            "authSubtitle"
-        );
-
-    if(authSubtitle)
-        authSubtitle.textContent =
-            t("authSubtitle");
-
-
-    document.getElementById("email")
-        .placeholder =
-        t("email");
-
-
-    document.getElementById("password")
-        .placeholder =
-        t("password");
-
-
-    document.getElementById("welcomeTitle")
-        .textContent =
-        t("appWelcome");
-
-
-    document.getElementById("welcomeText")
-        .textContent =
-        t("appDescription");
-
-
-    document.getElementById("messageInput")
-        .placeholder =
-        t("placeholder");
-
+    document.getElementById("email").placeholder = t("email");
+    document.getElementById("password").placeholder = t("password");
+    document.getElementById("welcomeTitle").textContent = t("appWelcome");
+    document.getElementById("welcomeText").textContent = t("appDescription");
+    document.getElementById("messageInput").placeholder = t("placeholder");
 }
 
 
@@ -2732,69 +2446,27 @@ function applyLanguage(){
 ========================================================= */
 
 function showLanguage(){
-
-    document.getElementById(
-        "welcomeStep"
-    ).classList.add("hidden");
-
-    document.getElementById(
-        "languageStep"
-    ).classList.remove("hidden");
-
+    document.getElementById("welcomeStep").classList.add("hidden");
+    document.getElementById("languageStep").classList.remove("hidden");
 }
 
+function selectLanguage(lang, button){
+    selectedLanguage = lang;
+    localStorage.setItem("siflowLanguage", lang);
 
-function selectLanguage(lang,button){
-
-    selectedLanguage =
-        lang;
-
-    localStorage.setItem(
-        "siflowLanguage",
-        lang
-    );
-
-
-    document
-        .querySelectorAll(".language-btn")
-        .forEach(btn =>
-            btn.classList.remove("active")
-        );
-
-
+    document.querySelectorAll(".language-btn").forEach(btn => btn.classList.remove("active"));
     button.classList.add("active");
-
-
-    document.getElementById(
-        "continueLanguage"
-    ).disabled = false;
-
+    document.getElementById("continueLanguage").disabled = false;
 }
-
 
 function showAuth(){
-
-    if(!selectedLanguage)
-        return;
-
-
+    if(!selectedLanguage) return;
     applyLanguage();
 
-
-    document.getElementById(
-        "onboarding"
-    ).classList.add("hidden");
-
-
-    const auth =
-        document.getElementById("auth");
-
-
+    document.getElementById("onboarding").classList.add("hidden");
+    const auth = document.getElementById("auth");
     auth.classList.remove("hidden");
-
-    auth.style.display =
-        "flex";
-
+    auth.style.display = "flex";
 }
 
 
@@ -2803,110 +2475,37 @@ function showAuth(){
 ========================================================= */
 
 function toggleSignup(){
+    signupMode = !signupMode;
 
-    signupMode =
-        !signupMode;
-
-
-    const title =
-        document.getElementById(
-            "authTitle"
-        );
-
-
-    const subtitle =
-        document.getElementById(
-            "authSubtitle"
-        );
-
-
-    const button =
-        document.querySelector(
-            ".auth-form button"
-        );
-
-
-    const switchArea =
-        document.querySelector(
-            ".auth-switch"
-        );
-
+    const title = document.getElementById("authTitle");
+    const subtitle = document.getElementById("authSubtitle");
+    const button = document.querySelector(".auth-form button");
+    const switchArea = document.querySelector(".auth-switch");
 
     if(signupMode){
-
-        title.textContent =
-            t("signUp");
-
-        subtitle.textContent =
-            selectedLanguage === "ar"
-                ? "أنشئ حسابك وابدأ استعمال Siflow"
-                : "Create your Siflow account";
-
-        button.textContent =
-            t("signUp");
-
-
-        switchArea.innerHTML =
-            selectedLanguage === "ar"
-            ?
-            `لديك حساب بالفعل؟
-             <button onclick="toggleSignup()">تسجيل الدخول</button>`
-            :
-            `Already have an account?
-             <button onclick="toggleSignup()">Sign In</button>`;
-
+        title.textContent = t("signUp");
+        subtitle.textContent = selectedLanguage === "ar" ? "أنشئ حسابك وابدأ استعمال Siflow" : "Create your Siflow account";
+        button.textContent = t("signUp");
+        switchArea.innerHTML = selectedLanguage === "ar" ?
+            `لديك حساب بالفعل؟ <button onclick="toggleSignup()">تسجيل الدخول</button>` :
+            `Already have an account? <button onclick="toggleSignup()">Sign In</button>`;
     }else{
-
-        title.textContent =
-            t("authTitle");
-
-        subtitle.textContent =
-            t("authSubtitle");
-
-        button.textContent =
-            t("signIn");
-
-
-        switchArea.innerHTML =
-            selectedLanguage === "ar"
-            ?
-            `ليس لديك حساب؟
-             <button onclick="toggleSignup()">إنشاء حساب</button>`
-            :
-            `Don't have an account?
-             <button onclick="toggleSignup()">Sign Up</button>`;
-
+        title.textContent = t("authTitle");
+        subtitle.textContent = t("authSubtitle");
+        button.textContent = t("signIn");
+        switchArea.innerHTML = selectedLanguage === "ar" ?
+            `ليس لديك حساب؟ <button onclick="toggleSignup()">إنشاء حساب</button>` :
+            `Don't have an account? <button onclick="toggleSignup()">Sign Up</button>`;
     }
-
 }
 
-
 function demoLogin(){
-
-    localStorage.setItem(
-        "siflowLoggedIn",
-        "true"
-    );
-
-
-    const email =
-        document.getElementById(
-            "email"
-        ).value.trim();
-
-
+    localStorage.setItem("siflowLoggedIn", "true");
+    const email = document.getElementById("email").value.trim();
     if(email){
-
-        localStorage.setItem(
-            "siflowUserEmail",
-            email
-        );
-
+        localStorage.setItem("siflowUserEmail", email);
     }
-
-
     openApp();
-
 }
 
 
@@ -2915,1381 +2514,422 @@ function demoLogin(){
 ========================================================= */
 
 function openApp(){
+    document.getElementById("onboarding").classList.add("hidden");
+    document.getElementById("auth").classList.add("hidden");
 
-    document.getElementById(
-        "onboarding"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-        "auth"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-        "app"
-    ).classList.remove("hidden");
-
+    const app = document.getElementById("app");
+    app.classList.remove("hidden");
+    app.style.display = "flex";
 
     applyLanguage();
 
-
-    const email =
-        localStorage.getItem(
-            "siflowUserEmail"
-        );
-
-
+    const email = localStorage.getItem("siflowUserEmail");
     if(email){
-
-        document.getElementById(
-            "profileName"
-        ).textContent =
-            email.split("@")[0];
-
+        document.getElementById("profileName").textContent = email.split("@")[0];
     }
-
 
     renderChatList();
 
-
     if(!currentChatId){
-
         newChat(false);
-
     }
-
 }
 
 
 /* =========================================================
-   CHAT STORAGE
+   CHAT STORAGE & MANAGEMENT
 ========================================================= */
 
 function getChats(){
-
     try{
-
-        return JSON.parse(
-            localStorage.getItem(
-                "siflowChats"
-            )
-        ) || [];
-
+        return JSON.parse(localStorage.getItem("siflowChats")) || [];
     }catch(e){
-
         return [];
-
     }
-
 }
-
 
 function saveChats(chats){
-
-    localStorage.setItem(
-        "siflowChats",
-        JSON.stringify(chats)
-    );
-
+    localStorage.setItem("siflowChats", JSON.stringify(chats));
 }
-
-
-/* =========================================================
-   CREATE CHAT
-========================================================= */
 
 function createChat(){
-
-    const chats =
-        getChats();
-
-
+    const chats = getChats();
     const chat = {
-
-        id:
-            Date.now().toString(),
-
-        title:
-            selectedLanguage === "ar"
-                ? "محادثة جديدة"
-                : "New Chat",
-
-        messages:[],
-
-        createdAt:
-            Date.now()
-
+        id: Date.now().toString(),
+        title: selectedLanguage === "ar" ? "محادثة جديدة" : "New Chat",
+        messages: [],
+        createdAt: Date.now()
     };
-
-
     chats.unshift(chat);
-
     saveChats(chats);
-
-
     return chat;
-
 }
 
-
-/* =========================================================
-   NEW CHAT
-========================================================= */
-
-function newChat(create=true){
-
+function newChat(create = true){
     if(create){
-
-        const chat =
-            createChat();
-
-        currentChatId =
-            chat.id;
-
+        const chat = createChat();
+        currentChatId = chat.id;
     }else{
-
-        const chats =
-            getChats();
-
+        const chats = getChats();
         if(chats.length){
-
-            currentChatId =
-                chats[0].id;
-
+            currentChatId = chats[0].id;
         }else{
-
-            const chat =
-                createChat();
-
-            currentChatId =
-                chat.id;
-
+            const chat = createChat();
+            currentChatId = chat.id;
         }
-
     }
 
-
-    document.getElementById(
-        "messages"
-    ).innerHTML = "";
-
-
-    document.getElementById(
-        "welcome"
-    ).classList.remove("hidden");
-
-
-    document.getElementById(
-        "messageInput"
-    ).value = "";
-
-
+    document.getElementById("messages").innerHTML = "";
+    document.getElementById("welcome").classList.remove("hidden");
+    document.getElementById("messageInput").value = "";
     selectedFile = null;
-
-    document.getElementById(
-        "filePreview"
-    ).classList.remove("show");
-
+    document.getElementById("filePreview").classList.remove("show");
 
     updateSendButton();
-
-
     renderChatList();
-
-
     closeSidebar();
-
 }
-
-
-/* =========================================================
-   LOAD CHAT
-========================================================= */
 
 function loadChatById(id){
+    const chats = getChats();
+    const chat = chats.find(x => x.id === id);
+    if(!chat) return;
 
-    const chats =
-        getChats();
+    currentChatId = id;
+    document.getElementById("welcome").classList.add("hidden");
 
-
-    const chat =
-        chats.find(
-            x => x.id === id
-        );
-
-
-    if(!chat)
-        return;
-
-
-    currentChatId =
-        id;
-
-
-    document.getElementById(
-        "welcome"
-    ).classList.add("hidden");
-
-
-    const messages =
-        document.getElementById(
-            "messages"
-        );
-
-
+    const messages = document.getElementById("messages");
     messages.innerHTML = "";
 
-
-    chat.messages.forEach(
-        message => {
-
-            addMessage(
-                message.text,
-                message.type,
-                false
-            );
-
-        }
-    );
-
+    chat.messages.forEach(message => {
+        addMessage(message.text, message.type, false);
+    });
 
     renderChatList();
-
-
     closeSidebar();
-
-
-    setTimeout(
-        scrollChat,
-        50
-    );
-
+    setTimeout(scrollChat, 50);
 }
-
-
-/* =========================================================
-   RENDER CHAT LIST
-========================================================= */
 
 function renderChatList(){
-
-    const list =
-        document.getElementById(
-            "chatList"
-        );
-
-
-    const chats =
-        getChats();
-
-
+    const list = document.getElementById("chatList");
+    const chats = getChats();
     list.innerHTML = "";
 
-
     if(!chats.length){
-
-        list.innerHTML =
-            `<div class="empty-search">
-                No conversations yet.
-             </div>`;
-
+        list.innerHTML = `<div class="empty-search">No conversations yet.</div>`;
         return;
-
     }
 
+    const todayTitle = document.createElement("div");
+    todayTitle.className = "chat-group-title";
+    todayTitle.textContent = t("today");
+    list.appendChild(todayTitle);
 
-    const todayTitle =
-        document.createElement("div");
-
-    todayTitle.className =
-        "chat-group-title";
-
-    todayTitle.textContent =
-        t("today");
-
-    list.appendChild(
-        todayTitle
-    );
-
-
-    chats.forEach(
-        chat => {
-
-            const item =
-                document.createElement(
-                    "div"
-                );
-
-
-            item.className =
-                "chat-item" +
-                (
-                    chat.id === currentChatId
-                    ? " active"
-                    : ""
-                );
-
-
-            item.textContent =
-                chat.title;
-
-
-            item.onclick =
-                () =>
-                loadChatById(
-                    chat.id
-                );
-
-
-            list.appendChild(item);
-
-        }
-    );
-
+    chats.forEach(chat => {
+        const item = document.createElement("div");
+        item.className = "chat-item" + (chat.id === currentChatId ? " active" : "");
+        item.textContent = chat.title;
+        item.onclick = () => loadChatById(chat.id);
+        list.appendChild(item);
+    });
 }
-
-
-/* =========================================================
-   UPDATE CHAT TITLE
-========================================================= */
 
 function updateChatTitle(text){
+    if(!currentChatId) return;
+    const chats = getChats();
+    const chat = chats.find(x => x.id === currentChatId);
+    if(!chat) return;
 
-    if(!currentChatId)
-        return;
-
-
-    const chats =
-        getChats();
-
-
-    const chat =
-        chats.find(
-            x =>
-            x.id === currentChatId
-        );
-
-
-    if(!chat)
-        return;
-
-
-    if(
-        chat.title === "New Chat" ||
-        chat.title === "محادثة جديدة"
-    ){
-
-        chat.title =
-            text.length > 30
-            ? text.substring(0,30) + "..."
-            : text;
-
+    if(chat.title === "New Chat" || chat.title === "محادثة جديدة"){
+        chat.title = text.length > 30 ? text.substring(0, 30) + "..." : text;
     }
-
-
     saveChats(chats);
-
     renderChatList();
-
 }
 
 
 /* =========================================================
-   SEND MESSAGE
+   MESSAGING
 ========================================================= */
 
 function sendMessage(){
-
-    const input =
-        document.getElementById(
-            "messageInput"
-        );
-
-
-    const text =
-        input.value.trim();
-
-
-    if(!text)
-        return;
-
+    const input = document.getElementById("messageInput");
+    const text = input.value.trim();
+    if(!text) return;
 
     if(!currentChatId){
-
-        const chat =
-            createChat();
-
-        currentChatId =
-            chat.id;
-
+        const chat = createChat();
+        currentChatId = chat.id;
     }
 
-
-    document.getElementById(
-        "welcome"
-    ).classList.add("hidden");
-
-
-    addMessage(
-        text,
-        "user",
-        true
-    );
-
-
+    document.getElementById("welcome").classList.add("hidden");
+    addMessage(text, "user", true);
     updateChatTitle(text);
 
-
     input.value = "";
-
-
     updateSendButton();
-
-
     showTyping();
 
-
-    setTimeout(
-        () => {
-
-            removeTyping();
-
-
-            const response =
-                getDemoResponse(text);
-
-
-            addMessage(
-                response,
-                "ai",
-                true
-            );
-
-        },
-        850
-    );
-
+    setTimeout(() => {
+        removeTyping();
+        const response = getDemoResponse(text);
+        addMessage(response, "ai", true);
+    }, 850);
 }
-
-
-/* =========================================================
-   DEMO AI RESPONSE
-========================================================= */
 
 function getDemoResponse(text){
-
     if(selectedLanguage === "ar"){
-
-        return (
-            "مرحباً! أنا Siflow 🤖\n\n" +
-            "وصلتني رسالتك:\n" +
-            "«" + text + "»\n\n" +
-            "هذه حالياً نسخة تجريبية من Siflow Chat. " +
-            "واجهة المحادثة وحفظ المحادثات يعملان، " +
-            "أما الذكاء الاصطناعي الحقيقي فسنربطه لاحقاً " +
-            "من خلال Backend آمن."
-        );
-
+        return "مرحباً! أنا Siflow 🤖\n\nوصلتني رسالتك:\n«" + text + "»\n\nهذه حالياً نسخة تجريبية من Siflow Chat.";
     }
-
-
     if(selectedLanguage === "fr"){
-
-        return (
-            "Bonjour ! Je suis Siflow 🤖\n\n" +
-            "J'ai reçu votre message :\n" +
-            "«" + text + "»\n\n" +
-            "Ceci est actuellement la version démo de Siflow Chat. " +
-            "L'IA réelle sera connectée plus tard via un backend sécurisé."
-        );
-
+        return "Bonjour ! Je suis Siflow 🤖\n\nJ'ai reçu votre message :\n«" + text + "»";
     }
-
-
-    return (
-        "Hello! I'm Siflow 🤖\n\n" +
-        "I received your message:\n" +
-        "“" + text + "”\n\n" +
-        "This is currently the demo version of Siflow Chat. " +
-        "The real AI model will be connected later through a secure backend."
-    );
-
+    return "Hello! I'm Siflow 🤖\n\nI received your message:\n“" + text + "”";
 }
 
+function addMessage(text, type, save = true){
+    const messages = document.getElementById("messages");
+    const div = document.createElement("div");
+    div.className = "message " + (type === "user" ? "user-message" : "");
 
-/* =========================================================
-   ADD MESSAGE
-========================================================= */
+    const avatar = type === "user" ? "S" : "✦";
+    const name = type === "user" ? "You" : "Siflow";
 
-function addMessage(
-    text,
-    type,
-    save=true
-){
+    const avatarDiv = document.createElement("div");
+    avatarDiv.className = "message-avatar";
+    avatarDiv.textContent = avatar;
 
-    const messages =
-        document.getElementById(
-            "messages"
-        );
+    const content = document.createElement("div");
+    content.className = "message-content";
 
+    const nameDiv = document.createElement("div");
+    nameDiv.className = "message-name";
+    nameDiv.textContent = name;
 
-    const div =
-        document.createElement(
-            "div"
-        );
+    const textDiv = document.createElement("div");
+    textDiv.textContent = text;
 
+    content.appendChild(nameDiv);
+    content.appendChild(textDiv);
 
-    div.className =
-        "message " +
-        (
-            type === "user"
-            ? "user-message"
-            : ""
-        );
+    div.appendChild(avatarDiv);
+    div.appendChild(content);
 
-
-    const avatar =
-        type === "user"
-        ? "S"
-        : "✦";
-
-
-    const name =
-        type === "user"
-        ? "You"
-        : "Siflow";
-
-
-    const avatarDiv =
-        document.createElement(
-            "div"
-        );
-
-
-    avatarDiv.className =
-        "message-avatar";
-
-
-    avatarDiv.textContent =
-        avatar;
-
-
-    const content =
-        document.createElement(
-            "div"
-        );
-
-
-    content.className =
-        "message-content";
-
-
-    const nameDiv =
-        document.createElement(
-            "div"
-        );
-
-
-    nameDiv.className =
-        "message-name";
-
-
-    nameDiv.textContent =
-        name;
-
-
-    const textDiv =
-        document.createElement(
-            "div"
-        );
-
-
-    textDiv.textContent =
-        text;
-
-
-    content.appendChild(
-        nameDiv
-    );
-
-    content.appendChild(
-        textDiv
-    );
-
-
-    div.appendChild(
-        avatarDiv
-    );
-
-    div.appendChild(
-        content
-    );
-
-
-    messages.appendChild(
-        div
-    );
-
+    messages.appendChild(div);
 
     if(save){
-
-        saveMessage(
-            text,
-            type
-        );
-
+        saveMessage(text, type);
     }
-
-
     scrollChat();
-
 }
 
-
-/* =========================================================
-   SAVE MESSAGE
-========================================================= */
-
-function saveMessage(
-    text,
-    type
-){
-
-    if(!currentChatId)
-        return;
-
-
-    const chats =
-        getChats();
-
-
-    const chat =
-        chats.find(
-            x =>
-            x.id === currentChatId
-        );
-
-
-    if(!chat)
-        return;
-
+function saveMessage(text, type){
+    if(!currentChatId) return;
+    const chats = getChats();
+    const chat = chats.find(x => x.id === currentChatId);
+    if(!chat) return;
 
     chat.messages.push({
-
-        text:text,
-
-        type:type,
-
-        time:Date.now()
-
+        text: text,
+        type: type,
+        time: Date.now()
     });
-
-
     saveChats(chats);
-
-
     renderChatList();
-
 }
 
 
 /* =========================================================
-   TYPING
+   TYPING & HELPERS
 ========================================================= */
 
 function showTyping(){
-
-    const messages =
-        document.getElementById(
-            "messages"
-        );
-
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-
-    div.id =
-        "typingMessage";
-
-
-    div.className =
-        "message";
-
-
+    const messages = document.getElementById("messages");
+    const div = document.createElement("div");
+    div.id = "typingMessage";
+    div.className = "message";
     div.innerHTML = `
-
-        <div class="message-avatar">
-            ✦
-        </div>
-
+        <div class="message-avatar">✦</div>
         <div class="message-content">
-
-            <div class="message-name">
-                Siflow
-            </div>
-
+            <div class="message-name">Siflow</div>
             <div class="typing">
-
                 <span></span>
                 <span></span>
                 <span></span>
-
             </div>
-
         </div>
     `;
-
-
-    messages.appendChild(
-        div
-    );
-
-
+    messages.appendChild(div);
     scrollChat();
-
 }
-
 
 function removeTyping(){
-
-    const typing =
-        document.getElementById(
-            "typingMessage"
-        );
-
-
-    if(typing)
-        typing.remove();
-
+    const typing = document.getElementById("typingMessage");
+    if(typing) typing.remove();
 }
-
-
-/* =========================================================
-   SCROLL
-========================================================= */
 
 function scrollChat(){
-
-    const area =
-        document.getElementById(
-            "chatArea"
-        );
-
-
-    area.scrollTop =
-        area.scrollHeight;
-
+    const area = document.getElementById("chatArea");
+    area.scrollTop = area.scrollHeight;
 }
-
-
-/* =========================================================
-   ENTER
-========================================================= */
 
 function handleKey(event){
-
-    if(
-        event.key === "Enter" &&
-        !event.shiftKey
-    ){
-
+    if(event.key === "Enter" && !event.shiftKey){
         event.preventDefault();
-
         sendMessage();
-
     }
-
 }
-
-
-/* =========================================================
-   SEND BUTTON
-========================================================= */
 
 function updateSendButton(){
-
-    const input =
-        document.getElementById(
-            "messageInput"
-        );
-
-
-    const button =
-        document.getElementById(
-            "sendButton"
-        );
-
-
-    button.disabled =
-        !input.value.trim();
-
+    const input = document.getElementById("messageInput");
+    const button = document.getElementById("sendButton");
+    button.disabled = !input.value.trim();
 }
-
-
-/* =========================================================
-   TOOLS
-========================================================= */
 
 function useTool(tool){
-
-    const input =
-        document.getElementById(
-            "messageInput"
-        );
-
-
+    const input = document.getElementById("messageInput");
     const prompts = {
-
-        Code:
-            selectedLanguage === "ar"
-            ? "ساعدني في البرمجة."
-            : "Help me with coding.",
-
-        Learn:
-            selectedLanguage === "ar"
-            ? "ساعدني أفهم موضوعاً."
-            : "Help me understand a topic.",
-
-        Write:
-            selectedLanguage === "ar"
-            ? "ساعدني في كتابة نص."
-            : "Help me write something.",
-
-        Create:
-            selectedLanguage === "ar"
-            ? "ساعدني في إنشاء شيء جديد."
-            : "Help me create something.",
-
-        Research:
-            selectedLanguage === "ar"
-            ? "ساعدني في البحث عن موضوع."
-            : "Help me research a topic.",
-
-        Analyze:
-            selectedLanguage === "ar"
-            ? "أريد تحليل ملف."
-            : "I want to analyze a file."
-
+        Code: selectedLanguage === "ar" ? "ساعدني في البرمجة." : "Help me with coding.",
+        Learn: selectedLanguage === "ar" ? "ساعدني أفهم موضوعاً." : "Help me understand a topic.",
+        Write: selectedLanguage === "ar" ? "ساعدني في كتابة نص." : "Help me write something.",
+        Create: selectedLanguage === "ar" ? "ساعدني في إنشاء شيء جديد." : "Help me create something.",
+        Research: selectedLanguage === "ar" ? "ساعدني في البحث عن موضوع." : "Help me research a topic.",
+        Analyze: selectedLanguage === "ar" ? "أريد تحليل ملف." : "I want to analyze a file."
     };
-
-
-    input.value =
-        prompts[tool] ||
-        "";
-
-
+    input.value = prompts[tool] || "";
     updateSendButton();
-
-
     input.focus();
-
 }
-
-
-/* =========================================================
-   FILE
-========================================================= */
 
 function handleFile(input){
-
-    if(!input.files.length)
-        return;
-
-
-    selectedFile =
-        input.files[0];
-
-
-    const preview =
-        document.getElementById(
-            "filePreview"
-        );
-
-
-    preview.textContent =
-        "📎 " +
-        selectedFile.name;
-
-
-    preview.classList.add(
-        "show"
-    );
-
+    if(!input.files.length) return;
+    selectedFile = input.files[0];
+    const preview = document.getElementById("filePreview");
+    preview.textContent = "📎 " + selectedFile.name;
+    preview.classList.add("show");
 }
-
-
-/* =========================================================
-   VOICE DEMO
-========================================================= */
 
 function voiceDemo(){
-
-    if(
-        "webkitSpeechRecognition"
-        in window
-    ){
-
-        alert(
-            selectedLanguage === "ar"
-            ?
-            "يمكن تفعيل التعرف على الصوت الكامل في المرحلة القادمة."
-            :
-            "Full voice recognition can be connected in the next stage."
-        );
-
-    }else{
-
-        alert(
-            selectedLanguage === "ar"
-            ?
-            "التعرف على الصوت غير متوفر في هذا المتصفح."
-            :
-            "Voice recognition is not available in this browser."
-        );
-
-    }
-
+    alert(selectedLanguage === "ar" ? "التعرف الصوتي غير مفعل حالياً." : "Voice feature demo.");
 }
-
-
-/* =========================================================
-   WEB DEMO
-========================================================= */
 
 function webDemo(){
-
-    alert(
-
-        selectedLanguage === "ar"
-        ?
-        "البحث في الويب سيتم ربطه لاحقاً بمحرك بحث وBackend."
-        :
-        "Web Search will be connected later through a backend."
-
-    );
-
+    alert(selectedLanguage === "ar" ? "البحث في الويب قيد Entwicklung." : "Web search feature demo.");
 }
-
-
-/* =========================================================
-   SEARCH CHATS
-========================================================= */
 
 function searchChats(){
-
-    const query =
-        document.getElementById(
-            "searchInput"
-        ).value
-        .toLowerCase()
-        .trim();
-
-
-    document
-        .querySelectorAll(
-            ".chat-item"
-        )
-        .forEach(item => {
-
-            item.style.display =
-                item.textContent
-                .toLowerCase()
-                .includes(query)
-                ? "block"
-                : "none";
-
-        });
-
+    const query = document.getElementById("searchInput").value.toLowerCase().trim();
+    document.querySelectorAll(".chat-item").forEach(item => {
+        item.style.display = item.textContent.toLowerCase().includes(query) ? "block" : "none";
+    });
 }
-
-
-/* =========================================================
-   DELETE CURRENT CHAT
-========================================================= */
 
 function deleteCurrentChat(){
-
-    if(!currentChatId)
-        return;
-
-
-    const chats =
-        getChats();
-
-
-    const filtered =
-        chats.filter(
-            x =>
-            x.id !== currentChatId
-        );
-
-
+    if(!currentChatId) return;
+    const chats = getChats();
+    const filtered = chats.filter(x => x.id !== currentChatId);
     saveChats(filtered);
-
-
-    currentChatId =
-        null;
-
-
-    document.getElementById(
-        "messages"
-    ).innerHTML = "";
-
-
-    document.getElementById(
-        "welcome"
-    ).classList.remove("hidden");
-
-
+    currentChatId = null;
+    document.getElementById("messages").innerHTML = "";
+    document.getElementById("welcome").classList.remove("hidden");
     renderChatList();
-
-
     newChat(false);
-
 }
-
-
-/* =========================================================
-   CLEAR ALL
-========================================================= */
 
 function clearAllChats(){
-
-    const ok =
-        confirm(
-            selectedLanguage === "ar"
-            ?
-            "هل تريد حذف جميع المحادثات؟"
-            :
-            "Delete all conversations?"
-        );
-
-
-    if(!ok)
-        return;
-
-
-    localStorage.removeItem(
-        "siflowChats"
-    );
-
-
-    currentChatId =
-        null;
-
-
+    const ok = confirm(selectedLanguage === "ar" ? "هل تريد حذف جميع المحادثات؟" : "Delete all conversations?");
+    if(!ok) return;
+    localStorage.removeItem("siflowChats");
+    currentChatId = null;
     closeSettings();
-
-
     newChat(false);
-
 }
-
-
-/* =========================================================
-   SIDEBAR
-========================================================= */
 
 function toggleSidebar(){
-
-    document.getElementById(
-        "sidebar"
-    ).classList.toggle("open");
-
-
-    document.getElementById(
-        "sidebarOverlay"
-    ).classList.toggle("show");
-
+    document.getElementById("sidebar").classList.toggle("open");
+    document.getElementById("sidebarOverlay").classList.toggle("show");
 }
-
 
 function closeSidebar(){
-
-    document.getElementById(
-        "sidebar"
-    ).classList.remove("open");
-
-
-    document.getElementById(
-        "sidebarOverlay"
-    ).classList.remove("show");
-
+    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("sidebarOverlay").classList.remove("show");
 }
-
-
-/* =========================================================
-   SETTINGS
-========================================================= */
 
 function openSettings(){
-
-    document.getElementById(
-        "settingsModal"
-    ).classList.remove("hidden");
-
+    document.getElementById("settingsModal").classList.remove("hidden");
 }
-
 
 function closeSettings(){
-
-    document.getElementById(
-        "settingsModal"
-    ).classList.add("hidden");
-
+    document.getElementById("settingsModal").classList.add("hidden");
 }
 
-
-/* =========================================================
-   THEME
-========================================================= */
-
-function setTheme(
-    theme,
-    button
-){
-
-    document
-        .querySelectorAll(
-            ".theme-btn"
-        )
-        .forEach(
-            x =>
-            x.classList.remove(
-                "active"
-            )
-        );
-
-
-    button.classList.add(
-        "active"
-    );
-
+function setTheme(theme, button){
+    document.querySelectorAll(".theme-btn").forEach(x => x.classList.remove("active"));
+    button.classList.add("active");
 
     if(theme === "light"){
-
-        document.body.classList.add(
-            "light"
-        );
-
+        document.body.classList.add("light");
     }else{
-
-        document.body.classList.remove(
-            "light"
-        );
-
+        document.body.classList.remove("light");
     }
-
-
-    localStorage.setItem(
-        "siflowTheme",
-        theme
-    );
-
+    localStorage.setItem("siflowTheme", theme);
 }
-
-
-/* =========================================================
-   CHANGE LANGUAGE
-========================================================= */
 
 function changeLanguage(){
-
     closeSettings();
+    document.getElementById("app").classList.add("hidden");
+    document.getElementById("onboarding").classList.remove("hidden");
+    document.getElementById("welcomeStep").classList.add("hidden");
+    document.getElementById("languageStep").classList.remove("hidden");
 
-
-    document.getElementById(
-        "app"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-        "onboarding"
-    ).classList.remove("hidden");
-
-
-    document.getElementById(
-        "welcomeStep"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-        "languageStep"
-    ).classList.remove("hidden");
-
-
-    document
-        .querySelectorAll(
-            ".language-btn"
-        )
-        .forEach(
-            btn =>
-            btn.classList.remove(
-                "active"
-            )
-        );
-
-
-    const selected =
-        document.querySelector(
-            `.language-btn[onclick*="'${selectedLanguage}'"]`
-        );
-
-
+    document.querySelectorAll(".language-btn").forEach(btn => btn.classList.remove("active"));
+    const selected = document.querySelector(`.language-btn[onclick*="'${selectedLanguage}'"]`);
     if(selected){
-
-        selected.classList.add(
-            "active"
-        );
-
-        document.getElementById(
-            "continueLanguage"
-        ).disabled = false;
-
+        selected.classList.add("active");
+        document.getElementById("continueLanguage").disabled = false;
     }
-
 }
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
 
 function logout(){
-
-    localStorage.removeItem(
-        "siflowLoggedIn"
-    );
-
-
+    localStorage.removeItem("siflowLoggedIn");
     location.reload();
-
 }
 
 
 /* =========================================================
-   STARTUP
+   STARTUP & EVENTS
 ========================================================= */
 
-window.addEventListener(
-    "load",
-    () => {
-
-
-        /* THEME */
-
-        const theme =
-            localStorage.getItem(
-                "siflowTheme"
-            );
-
-
-        if(theme === "light"){
-
-            document.body.classList.add(
-                "light"
-            );
-
-
-            document
-                .querySelectorAll(
-                    ".theme-btn"
-                )
-                .forEach(
-                    (btn,index) => {
-
-                        btn.classList.toggle(
-                            "active",
-                            index === 1
-                        );
-
-                    }
-                );
-
-        }
-
-
-        /* LANGUAGE */
-
-        if(selectedLanguage){
-
-            applyLanguage();
-
-        }
-
-
-        /* LOGIN */
-
-        const logged =
-            localStorage.getItem(
-                "siflowLoggedIn"
-            );
-
-
-        if(logged === "true"){
-
-            openApp();
-
-        }
-
+window.addEventListener("load", () => {
+    const theme = localStorage.getItem("siflowTheme");
+    if(theme === "light"){
+        document.body.classList.add("light");
+        document.querySelectorAll(".theme-btn").forEach((btn, index) => {
+            btn.classList.toggle("active", index === 1);
+        });
     }
-);
 
-
-/* =========================================================
-   CLOSE MODAL BY CLICKING OUTSIDE
-========================================================= */
-
-document
-    .getElementById(
-        "settingsModal"
-    )
-    .addEventListener(
-        "click",
-        function(event){
-
-            if(
-                event.target === this
-            ){
-
-                closeSettings();
-
-            }
-
-        }
-    );
-
-
-/* =========================================================
-   AUTO RESIZE TEXTAREA
-========================================================= */
-
-const textarea =
-    document.getElementById(
-        "messageInput"
-    );
-
-
-textarea.addEventListener(
-    "input",
-    functionغالع(){},
-    function(){
-
-        this.style.height =
-            "auto";
-
-        this.style.height =
-            Math.min(
-                this.scrollHeight,
-                180
-            ) + "px";
-
+    if(selectedLanguage){
+        applyLanguage();
     }
-);
+
+    const logged = localStorage.getItem("siflowLoggedIn");
+    if(logged === "true"){
+        openApp();
+    }
+});
+
+document.getElementById("settingsModal").addEventListener("click", function(event){
+    if(event.target === this){
+        closeSettings();
+    }
+});
+
+const textarea = document.getElementById("messageInput");
+textarea.addEventListener("input", function(){
+    this.style.height = "auto";
+    this.style.height = Math.min(this.scrollHeight, 180) + "px";
+});
 
 </script>
 
