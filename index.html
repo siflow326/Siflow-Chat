@@ -478,7 +478,7 @@ textarea{
     min-height:100dvh;
     height:100dvh;
 
-    display:none; /* تحكم فيه عبر الـ JS */
+    display:none;
 
     align-items:center;
 
@@ -572,7 +572,7 @@ textarea{
 
     height:100dvh;
 
-    display:none; /* تحكم فيه عبر الـ JS */
+    display:none;
 }
 
 .sidebar{
@@ -2279,7 +2279,7 @@ body.rtl .search input{
                 Siflow Chat — Your AI.
                 Your Ideas. Your World.
                 <br><br>
-                Version 1.0 Demo
+                Version 1.0 AI
             </div>
 
         </div>
@@ -2649,7 +2649,7 @@ function updateChatTitle(text){
 
 
 /* =========================================================
-   MESSAGING
+   MESSAGING (REAL AI API INTEGRATION)
 ========================================================= */
 
 function sendMessage(){
@@ -2670,21 +2670,35 @@ function sendMessage(){
     updateSendButton();
     showTyping();
 
-    setTimeout(() => {
-        removeTyping();
-        const response = getDemoResponse(text);
-        addMessage(response, "ai", true);
-    }, 850);
-}
+    // المفتاح الخاص بك المدمج مباشرة للتشغيل على GitHub Pages
+    const API_KEY = "AQ.Ab8RN6KZLaTVhSCh4S7LQdybnqVLDuKAnJMKZk54-Z5piRg20g";
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
-function getDemoResponse(text){
-    if(selectedLanguage === "ar"){
-        return "مرحباً! أنا Siflow 🤖\n\nوصلتني رسالتك:\n«" + text + "»\n\nهذه حالياً نسخة تجريبية من Siflow Chat.";
-    }
-    if(selectedLanguage === "fr"){
-        return "Bonjour ! Je suis Siflow 🤖\n\nJ'ai reçu votre message :\n«" + text + "»";
-    }
-    return "Hello! I'm Siflow 🤖\n\nI received your message:\n“" + text + "”";
+    setTimeout(async () => {
+        try {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: text }] }]
+                })
+            });
+
+            const data = await res.json();
+            removeTyping();
+
+            if(data.candidates && data.candidates[0].content){
+                const aiReply = data.candidates[0].content.parts[0].text;
+                addMessage(aiReply, "ai", true);
+            } else {
+                addMessage(selectedLanguage === "ar" ? "عذراً، حدث خطأ في استجابة الذكاء الاصطناعي." : "Sorry, error in AI response.", "ai", true);
+            }
+
+        } catch (err) {
+            removeTyping();
+            addMessage(selectedLanguage === "ar" ? "تعذر الاتصال بخدمة الذكاء الاصطناعي." : "Failed to connect to AI service.", "ai", true);
+        }
+    }, 500);
 }
 
 function addMessage(text, type, save = true){
@@ -2814,7 +2828,7 @@ function voiceDemo(){
 }
 
 function webDemo(){
-    alert(selectedLanguage === "ar" ? "البحث في الويب قيد Entwicklung." : "Web search feature demo.");
+    alert(selectedLanguage === "ar" ? "البحث في الويب قيد التطوير." : "Web search feature demo.");
 }
 
 function searchChats(){
