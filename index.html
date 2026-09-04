@@ -1,167 +1,1631 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Siflow Chat - AI Workspace</title>
-    <style>
-        :root {
-            --bg-main: #0b0f19;
-            --bg-sidebar: #111827;
-            --bg-panel: #1f2937;
-            --accent-blue: #3b82f6;
-            --accent-glow: rgba(59, 130, 246, 0.5);
-            --text-main: #f9fafb;
-            --text-muted: #9ca3af;
-            --border-color: #374151;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-main); height: 100vh; display: flex; overflow: hidden; }
+<title>Siflow Chat</title>
 
-        .screen { display: none; width: 100%; height: 100vh; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
-        .screen.active { display: flex; }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        #welcome-screen { text-align: center; background: radial-gradient(circle at center, #1e293b 0%, var(--bg-main) 100%); }
-        .logo-title { font-size: 3rem; font-weight: 800; color: var(--text-main); letter-spacing: 2px; margin-bottom: 10px; }
-        .logo-title span { color: var(--accent-blue); text-shadow: 0 0 20px var(--accent-glow); }
-        .welcome-subtitle { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px; }
-        
-        .btn-primary { background: linear-gradient(135deg, #2563eb, #3b82f6); color: white; border: none; padding: 12px 30px; font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 15px var(--accent-glow); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 25px var(--accent-blue); }
+:root{
+    --bg:#070b14;
+    --sidebar:#0b1120;
+    --card:#101827;
+    --card2:#151f31;
+    --border:#202d43;
+    --text:#f5f7fb;
+    --muted:#8996aa;
+    --blue:#2587ff;
+    --blue2:#0068ff;
+}
 
-        #app-screen { flex-direction: row; padding: 0; }
-        
-        /* تعديل القائمة الجانبية لتكون في اليمين بشكل صحيح ودائم */
-        sidebar { width: 260px; min-width: 260px; background-color: var(--bg-sidebar); border-left: 1px solid var(--border-color); display: flex; flex-direction: column; padding: 20px; gap: 15px; height: 100vh; z-index: 10; }
-        .new-chat-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); padding: 10px; border-radius: 6px; text-align: right; cursor: pointer; display: flex; align-items: center; justify-content: space-between; font-weight: 600; transition: background 0.2s; }
-        .new-chat-btn:hover { background: var(--bg-panel); }
+body{
+    min-height:100vh;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+    overflow:hidden;
+}
 
-        main { flex: 1; display: flex; flex-direction: column; height: 100vh; background-color: var(--bg-main); position: relative; overflow: hidden; }
-        .chat-header { padding: 15px 20px; border-bottom: 1px solid var(--border-color); font-weight: bold; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }
-        
-        .chat-body { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 20px; align-items: center; }
-        .chat-container { width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 20px; }
+button{
+    border:0;
+    cursor:pointer;
+    color:inherit;
+    font-family:inherit;
+}
 
-        .message { padding: 15px 20px; border-radius: 12px; max-width: 85%; line-height: 1.6; font-size: 0.95rem; word-break: break-word; }
-        .message.user { background-color: var(--bg-panel); align-self: flex-start; border: 1px solid var(--border-color); }
-        .message.bot { background-color: rgba(59, 130, 246, 0.1); align-self: flex-end; border: 1px solid rgba(59, 130, 246, 0.3); }
+.hidden{
+    display:none!important;
+}
 
-        .input-area { padding: 15px 20px; width: 100%; display: flex; justify-content: center; background: var(--bg-main); }
-        .input-wrapper { width: 100%; max-width: 800px; background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px; display: flex; flex-direction: column; padding: 10px 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-        .input-wrapper textarea { background: transparent; border: none; color: var(--text-main); resize: none; font-size: 1rem; outline: none; min-height: 24px; max-height: 150px; line-height: 1.5; }
-        .input-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid var(--border-color); padding-top: 8px; }
-        .tool-icons { display: flex; gap: 15px; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; }
-        .send-btn { background: var(--accent-blue); color: white; border: none; width: 36px; height: 36px; border-radius: 8px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: background 0.2s; }
-        .send-btn:hover { background: #2563eb; }
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:800;
+    letter-spacing:.5px;
+}
 
-        /* متجاوب مع الهواتف الذكية */
-        @media (max-width: 768px) {
-            sidebar { display: none; } /* إخفاء الجانبية مؤقتاً في الشاشات الصغيرة لتشمل مساحة الدردشة كاملة، يمكن إضافتها بزر قائمة لاحقاً */
-        }
-    </style>
+.logo-icon{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#2da4ff,#0756ff);
+    box-shadow:0 0 25px rgba(25,125,255,.25);
+    font-size:20px;
+}
+
+.logo span{
+    font-size:20px;
+}
+
+.primary-btn{
+    width:100%;
+    padding:14px 18px;
+    border-radius:13px;
+    background:linear-gradient(135deg,var(--blue),var(--blue2));
+    font-weight:700;
+    transition:.2s;
+}
+
+.primary-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 8px 25px rgba(0,110,255,.25);
+}
+
+.primary-btn:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+    transform:none;
+    box-shadow:none;
+}
+
+.secondary-btn{
+    width:100%;
+    padding:13px 18px;
+    border-radius:13px;
+    background:var(--card2);
+    border:1px solid var(--border);
+    font-weight:600;
+}
+
+input{
+    width:100%;
+    padding:14px 15px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:#0c1422;
+    color:white;
+    outline:none;
+    font-size:15px;
+}
+
+input:focus{
+    border-color:var(--blue);
+}
+
+/* ONBOARDING */
+
+#onboarding{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+    background:
+      radial-gradient(circle at 50% 20%,rgba(0,110,255,.13),transparent 35%),
+      var(--bg);
+}
+
+.onboard-card{
+    width:min(520px,100%);
+    text-align:center;
+}
+
+.big-logo{
+    display:flex;
+    justify-content:center;
+    margin-bottom:35px;
+}
+
+.big-logo .logo-icon{
+    width:72px;
+    height:72px;
+    border-radius:22px;
+    font-size:35px;
+}
+
+.big-logo span{
+    font-size:32px;
+}
+
+.onboard-card h1{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.onboard-card p{
+    color:var(--muted);
+    font-size:16px;
+    line-height:1.7;
+    margin-bottom:35px;
+}
+
+.language-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.language-btn{
+    padding:15px;
+    border:1px solid var(--border);
+    background:var(--card);
+    border-radius:13px;
+    text-align:left;
+    transition:.2s;
+}
+
+.language-btn:hover,
+.language-btn.active{
+    border-color:var(--blue);
+    background:rgba(37,135,255,.1);
+}
+
+.language-btn small{
+    display:block;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+/* AUTH */
+
+#auth{
+    background:
+      radial-gradient(circle at 50% 20%,rgba(0,110,255,.13),transparent 35%),
+      var(--bg);
+}
+
+.auth-card{
+    width:min(430px,100%);
+}
+
+.auth-card h1{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.auth-card .subtitle{
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:25px;
+}
+
+.auth-form{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.divider{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:18px 0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.divider:before,
+.divider:after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--border);
+}
+
+.auth-switch{
+    text-align:center;
+    margin-top:18px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.auth-switch button{
+    background:none;
+    color:#5daaff;
+}
+
+/* APP */
+
+#app{
+    width:100%;
+    height:100vh;
+    display:flex;
+}
+
+.sidebar{
+    width:270px;
+    height:100vh;
+    background:var(--sidebar);
+    border-right:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    padding:16px;
+    transition:.25s;
+    flex-shrink:0;
+}
+
+.sidebar-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+}
+
+.new-chat{
+    width:100%;
+    padding:13px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#1686ff,#0758e8);
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.search{
+    margin-bottom:15px;
+}
+
+.chat-list{
+    flex:1;
+    overflow-y:auto;
+}
+
+.chat-group-title{
+    color:var(--muted);
+    font-size:12px;
+    margin:15px 7px 8px;
+    text-transform:uppercase;
+}
+
+.chat-item{
+    padding:11px 12px;
+    border-radius:10px;
+    margin-bottom:4px;
+    cursor:pointer;
+    color:#d8deea;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.chat-item:hover,
+.chat-item.active{
+    background:var(--card2);
+}
+
+.sidebar-bottom{
+    border-top:1px solid var(--border);
+    padding-top:12px;
+}
+
+.side-btn{
+    width:100%;
+    background:none;
+    text-align:left;
+    padding:11px;
+    border-radius:10px;
+    color:#cbd4e3;
+}
+
+.side-btn:hover{
+    background:var(--card2);
+}
+
+.main{
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+}
+
+.topbar{
+    height:65px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 22px;
+    border-bottom:1px solid var(--border);
+}
+
+.mobile-menu{
+    display:none;
+    background:none;
+    font-size:22px;
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.avatar{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#238bff,#4c35ff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.chat-area{
+    flex:1;
+    overflow-y:auto;
+    padding:30px 20px;
+}
+
+.welcome{
+    max-width:850px;
+    margin:10vh auto 0;
+    text-align:center;
+}
+
+.welcome h1{
+    font-size:40px;
+    margin-bottom:12px;
+}
+
+.welcome p{
+    color:var(--muted);
+    margin-bottom:30px;
+}
+
+.tools{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    max-width:750px;
+    margin:auto;
+}
+
+.tool{
+    padding:17px;
+    border:1px solid var(--border);
+    background:var(--card);
+    border-radius:14px;
+    text-align:left;
+    transition:.2s;
+}
+
+.tool:hover{
+    border-color:#286eb8;
+    transform:translateY(-2px);
+}
+
+.tool strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.tool span{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.messages{
+    max-width:850px;
+    margin:auto;
+}
+
+.message{
+    display:flex;
+    gap:12px;
+    margin-bottom:25px;
+    line-height:1.7;
+}
+
+.message-avatar{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    background:var(--card2);
+}
+
+.user-message .message-avatar{
+    background:linear-gradient(135deg,#238bff,#4c35ff);
+}
+
+.message-content{
+    flex:1;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+.message-name{
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+/* INPUT */
+
+.input-wrapper{
+    padding:15px 20px 20px;
+}
+
+.input-box{
+    max-width:850px;
+    margin:auto;
+    border:1px solid var(--border);
+    background:var(--card);
+    border-radius:18px;
+    padding:10px;
+    box-shadow:0 10px 40px rgba(0,0,0,.18);
+}
+
+textarea{
+    width:100%;
+    min-height:52px;
+    max-height:180px;
+    resize:none;
+    background:transparent;
+    border:0;
+    outline:none;
+    color:white;
+    font-size:15px;
+    padding:9px;
+    font-family:inherit;
+}
+
+.input-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.action-left{
+    display:flex;
+    gap:5px;
+}
+
+.icon-btn{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:transparent;
+    color:#aab6c9;
+}
+
+.icon-btn:hover{
+    background:var(--card2);
+    color:white;
+}
+
+.send-btn{
+    width:40px;
+    height:40px;
+    border-radius:11px;
+    background:linear-gradient(135deg,#2587ff,#0758e8);
+    font-size:18px;
+}
+
+.footer-note{
+    max-width:850px;
+    margin:8px auto 0;
+    text-align:center;
+    color:#596579;
+    font-size:11px;
+}
+
+/* SETTINGS */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:20;
+}
+
+.modal-card{
+    width:min(520px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:#0d1523;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:22px;
+}
+
+.modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.close-btn{
+    background:none;
+    font-size:22px;
+    color:var(--muted);
+}
+
+.setting{
+    padding:15px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.setting-title{
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.setting-desc{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:12px;
+}
+
+.theme-buttons{
+    display:flex;
+    gap:8px;
+}
+
+.theme-btn{
+    flex:1;
+    padding:11px;
+    border-radius:10px;
+    background:var(--card);
+    border:1px solid var(--border);
+}
+
+.theme-btn.active{
+    border-color:var(--blue);
+}
+
+/* LIGHT */
+
+body.light{
+    --bg:#f5f7fb;
+    --sidebar:#ffffff;
+    --card:#ffffff;
+    --card2:#edf2f8;
+    --border:#dce3ed;
+    --text:#111827;
+    --muted:#667085;
+}
+
+body.light input{
+    background:#f5f7fb;
+    color:#111827;
+}
+
+body.light textarea{
+    color:#111827;
+}
+
+body.light .modal-card{
+    background:white;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    .sidebar{
+        position:fixed;
+        left:-285px;
+        top:0;
+        z-index:15;
+        box-shadow:15px 0 40px rgba(0,0,0,.35);
+    }
+
+    .sidebar.open{
+        left:0;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .welcome{
+        margin-top:7vh;
+    }
+
+    .welcome h1{
+        font-size:30px;
+    }
+
+    .tools{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .chat-area{
+        padding:20px 14px;
+    }
+
+    .input-wrapper{
+        padding:10px;
+    }
+}
+
+@media(max-width:480px){
+
+    .language-grid{
+        grid-template-columns:1fr;
+    }
+
+    .tools{
+        grid-template-columns:1fr;
+    }
+
+    .welcome h1{
+        font-size:27px;
+    }
+
+    .welcome p{
+        font-size:14px;
+    }
+
+    .profile-name{
+        display:none;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- شاشة الترحيب -->
-    <div id="welcome-screen" class="screen active">
-        <h1 class="logo-title">SI<span>FLOW</span></h1>
-        <p class="welcome-subtitle">Your AI. Your Ideas. Your World.</p>
-        <button class="btn-primary" onclick="goToApp()">Get Started →</button>
-    </div>
+<!-- =========================
+     ONBOARDING
+========================= -->
 
-    <!-- الشاشة الرئيسية -->
-    <div id="app-screen" class="screen">
-        <sidebar>
-            <button class="new-chat-btn" onclick="newChat()">
-                <span>New Chat</span>
-                <span>+</span>
+<section id="onboarding">
+
+    <div class="onboard-card">
+
+        <div class="big-logo">
+            <div class="logo">
+                <div class="logo-icon">S</div>
+                <span>SIFLOW</span>
+            </div>
+        </div>
+
+        <div id="welcomeStep">
+
+            <h1>Welcome to Siflow</h1>
+
+            <p>
+                Your AI. Your Ideas. Your World.
+                <br>
+                A modern AI assistant designed to help you learn, create and explore.
+            </p>
+
+            <button class="primary-btn" onclick="showLanguage()">
+                Get Started →
             </button>
-            <div style="flex:1; overflow-y:auto; font-size: 0.9rem; color: var(--text-muted);">
-                <p style="padding: 5px 0; font-weight: bold; color: var(--text-main);">Recent Chats</p>
-                <div style="padding: 8px; cursor: pointer; border-radius: 4px; background: rgba(255,255,255,0.03); margin-top: 5px;">كيفية تعلم البرمجة</div>
-                <div style="padding: 8px; cursor: pointer; border-radius: 4px; margin-top: 5px;">تصميم واجهة Siflow</div>
-            </div>
-            <div style="border-top: 1px solid var(--border-color); padding-top: 10px; font-size: 0.85rem; color: var(--text-muted);">
-                أسامة سيف الدين (V1)
-            </div>
-        </sidebar>
-        
-        <main>
-            <div class="chat-header">
-                <span>Siflow Chat</span>
-                <span style="font-size: 0.85rem; color: var(--accent-blue);">Online</span>
+
+        </div>
+
+        <div id="languageStep" class="hidden">
+
+            <h1>Choose your language</h1>
+
+            <p>Select the language you want to use with Siflow.</p>
+
+            <div class="language-grid">
+
+                <button class="language-btn" onclick="selectLanguage('en',this)">
+                    🇬🇧 English
+                    <small>English</small>
+                </button>
+
+                <button class="language-btn" onclick="selectLanguage('ar',this)">
+                    🇩🇿 العربية
+                    <small>Arabic</small>
+                </button>
+
+                <button class="language-btn" onclick="selectLanguage('fr',this)">
+                    🇫🇷 Français
+                    <small>French</small>
+                </button>
+
+                <button class="language-btn" onclick="selectLanguage('es',this)">
+                    🇪🇸 Español
+                    <small>Spanish</small>
+                </button>
+
+                <button class="language-btn" onclick="selectLanguage('de',this)">
+                    🇩🇪 Deutsch
+                    <small>German</small>
+                </button>
+
+                <button class="language-btn" onclick="selectLanguage('tr',this)">
+                    🇹🇷 Türkçe
+                    <small>Turkish</small>
+                </button>
+
+                <button class="language-btn" onclick="selectLanguage('ja',this)">
+                    🇯🇵 日本語
+                    <small>Japanese</small>
+                </button>
+
+                <button class="language-btn" onclick="selectLanguage('zh',this)">
+                    🇨🇳 中文
+                    <small>Chinese</small>
+                </button>
+
             </div>
 
-            <div class="chat-body" id="chatBody">
-                <div class="chat-container" id="chatContainer">
-                    <div class="message bot">مرحباً بك في Siflow Chat. كيف يمكنني مساعدتك اليوم؟</div>
-                </div>
-            </div>
+            <button id="continueLanguage"
+                    class="primary-btn"
+                    onclick="showAuth()"
+                    disabled>
+                Continue →
+            </button>
 
-            <div class="input-area">
-                <div class="input-wrapper">
-                    <textarea id="userInput" placeholder="Ask Siflow anything..." rows="1" oninput="autoResize(this)"></textarea>
-                    <div class="input-actions">
-                        <div class="tool-icons">
-                            <span>📎 Attach</span>
-                            <span>🎤 Voice</span>
-                        </div>
-                        <button class="send-btn" onclick="sendMessage()">➤</button>
-                    </div>
-                </div>
-            </div>
-        </main>
+        </div>
+
     </div>
 
-    <script>
-        function goToApp() {
-            document.getElementById('welcome-screen').classList.remove('active');
-            document.getElementById('app-screen').classList.add('active');
-        }
+</section>
 
-        function autoResize(textarea) {
-            textarea.style.height = 'auto';
-            textarea.style.height = textarea.scrollHeight + 'px';
-        }
 
-        function sendMessage() {
-            const input = document.getElementById('userInput');
-            const container = document.getElementById('chatContainer');
-            const text = input.value.trim();
-            if(!text) return;
+<!-- =========================
+     AUTH
+========================= -->
 
-            const userDiv = document.createElement('div');
-            userDiv.className = 'message user';
-            userDiv.textContent = text;
-            container.appendChild(userDiv);
+<section id="auth"
+         class="hidden"
+         style="min-height:100vh;align-items:center;justify-content:center;padding:20px;">
 
-            input.value = '';
-            input.style.height = 'auto';
-            container.scrollTop = container.scrollHeight;
+    <div class="auth-card">
 
-            setTimeout(() => {
-                const botDiv = document.createElement('div');
-                botDiv.className = 'message bot';
-                container.appendChild(botDiv);
-                
-                let reply = "أهلاً بك! لقد تم ضبط واجهة Siflow Chat لتكون متناسقة تماماً مع شاشات الهواتف والحواسيب.";
-                let i = 0;
-                function typeWriter() {
-                    if (i < reply.length) {
-                        botDiv.textContent += reply.charAt(i);
-                        i++;
-                        container.scrollTop = container.scrollHeight;
-                        setTimeout(typeWriter, 20);
-                    }
-                }
-                typeWriter();
-            }, 500);
-        }
+        <div class="big-logo">
+            <div class="logo">
+                <div class="logo-icon">S</div>
+                <span>SIFLOW</span>
+            </div>
+        </div>
 
-        function newChat() {
-            document.getElementById('chatContainer').innerHTML = '<div class="message bot">محادثة جديدة جاهزة. تفضل بطرح سؤالك!</div>';
-        }
-    </script>
+        <h1 id="authTitle">Welcome to Siflow</h1>
+
+        <div class="subtitle" id="authSubtitle">
+            Sign in to continue
+        </div>
+
+        <button class="secondary-btn" onclick="demoLogin()">
+            🌐 Continue with Google
+        </button>
+
+        <div class="divider">OR</div>
+
+        <div class="auth-form">
+
+            <input id="email"
+                   type="email"
+                   placeholder="Email">
+
+            <input id="password"
+                   type="password"
+                   placeholder="Password">
+
+            <button class="primary-btn" onclick="demoLogin()">
+                Sign In
+            </button>
+
+        </div>
+
+        <div class="auth-switch">
+            Don't have an account?
+            <button onclick="toggleSignup()">Sign Up</button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     APP
+========================= -->
+
+<section id="app" class="hidden">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-top">
+
+            <div class="logo">
+                <div class="logo-icon">S</div>
+                <span>SIFLOW</span>
+            </div>
+
+        </div>
+
+        <button class="new-chat" onclick="newChat()">
+            ＋ New Chat
+        </button>
+
+        <div class="search">
+            <input id="searchInput"
+                   placeholder="🔍 Search chats..."
+                   oninput="searchChats()">
+        </div>
+
+        <div class="chat-list" id="chatList">
+
+            <div class="chat-group-title">Today</div>
+
+            <div class="chat-item active" onclick="loadChat(this)">
+                How can I learn Python?
+            </div>
+
+            <div class="chat-item" onclick="loadChat(this)">
+                Website idea
+            </div>
+
+            <div class="chat-item" onclick="loadChat(this)">
+                Fix my code
+            </div>
+
+            <div class="chat-group-title">Yesterday</div>
+
+            <div class="chat-item" onclick="loadChat(this)">
+                Explain artificial intelligence
+            </div>
+
+            <div class="chat-item" onclick="loadChat(this)">
+                School project
+            </div>
+
+        </div>
+
+        <div class="sidebar-bottom">
+
+            <button class="side-btn" onclick="openSettings()">
+                ⚙️ Settings
+            </button>
+
+            <button class="side-btn" onclick="logout()">
+                🚪 Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <button class="mobile-menu" onclick="toggleSidebar()">
+                ☰
+            </button>
+
+            <strong>Siflow Chat</strong>
+
+            <div class="profile">
+
+                <span class="profile-name">Siflow User</span>
+
+                <div class="avatar">
+                    S
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <div class="chat-area" id="chatArea">
+
+            <div class="welcome" id="welcome">
+
+                <h1>What can I help you with?</h1>
+
+                <p>
+                    Ask Siflow anything. Learn, create, code and explore.
+                </p>
+
+                <div class="tools">
+
+                    <button class="tool" onclick="useTool('Code')">
+                        <strong>💻 Code</strong>
+                        <span>Write and explain code</span>
+                    </button>
+
+                    <button class="tool" onclick="useTool('Learn')">
+                        <strong>📚 Learn</strong>
+                        <span>Understand difficult topics</span>
+                    </button>
+
+                    <button class="tool" onclick="useTool('Write')">
+                        <strong>✍️ Write</strong>
+                        <span>Create and improve text</span>
+                    </button>
+
+                    <button class="tool" onclick="useTool('Create')">
+                        <strong>🎨 Create</strong>
+                        <span>Turn ideas into creations</span>
+                    </button>
+
+                    <button class="tool" onclick="useTool('Research')">
+                        <strong>🔎 Research</strong>
+                        <span>Explore information</span>
+                    </button>
+
+                    <button class="tool" onclick="useTool('Analyze')">
+                        <strong>📄 Analyze</strong>
+                        <span>Analyze your files</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="messages" id="messages"></div>
+
+        </div>
+
+
+        <div class="input-wrapper">
+
+            <div class="input-box">
+
+                <textarea id="messageInput"
+                          placeholder="Ask Siflow anything..."
+                          onkeydown="handleKey(event)"></textarea>
+
+                <div class="input-actions">
+
+                    <div class="action-left">
+
+                        <button class="icon-btn"
+                                title="Attach file"
+                                onclick="alert('File upload will be connected later.')">
+                            📎
+                        </button>
+
+                        <button class="icon-btn"
+                                title="Voice"
+                                onclick="alert('Voice mode will be connected later.')">
+                            🎤
+                        </button>
+
+                        <button class="icon-btn"
+                                title="Web Search"
+                                onclick="alert('Web Search will be connected later.')">
+                            🌐
+                        </button>
+
+                    </div>
+
+                    <button class="send-btn" onclick="sendMessage()">
+                        ➤
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="footer-note">
+                Siflow can make mistakes. Check important information.
+            </div>
+
+        </div>
+
+    </main>
+
+</section>
+
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<div id="settingsModal" class="modal hidden">
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <h2>Settings</h2>
+
+            <button class="close-btn" onclick="closeSettings()">
+                ×
+            </button>
+
+        </div>
+
+        <div class="setting">
+
+            <div class="setting-title">
+                Appearance
+            </div>
+
+            <div class="setting-desc">
+                Choose how Siflow looks.
+            </div>
+
+            <div class="theme-buttons">
+
+                <button class="theme-btn active"
+                        onclick="setTheme('dark',this)">
+                    🌙 Dark
+                </button>
+
+                <button class="theme-btn"
+                        onclick="setTheme('light',this)">
+                    ☀️ Light
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="setting">
+
+            <div class="setting-title">
+                Language
+            </div>
+
+            <div class="setting-desc">
+                Change your Siflow language.
+            </div>
+
+            <button class="secondary-btn"
+                    onclick="alert('Language settings will be connected later.')">
+                Change Language
+            </button>
+
+        </div>
+
+        <div class="setting">
+
+            <div class="setting-title">
+                Memory
+            </div>
+
+            <div class="setting-desc">
+                Manage what Siflow remembers.
+            </div>
+
+            <button class="secondary-btn"
+                    onclick="alert('Memory will be connected later.')">
+                Manage Memory
+            </button>
+
+        </div>
+
+        <div class="setting">
+
+            <div class="setting-title">
+                Privacy
+            </div>
+
+            <div class="setting-desc">
+                Manage your conversations and privacy.
+            </div>
+
+            <button class="secondary-btn"
+                    onclick="alert('Privacy settings will be connected later.')">
+                Privacy Settings
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   STATE
+========================= */
+
+let selectedLanguage = null;
+let signupMode = false;
+
+
+/* =========================
+   ONBOARDING
+========================= */
+
+function showLanguage(){
+
+    document.getElementById("welcomeStep")
+        .classList.add("hidden");
+
+    document.getElementById("languageStep")
+        .classList.remove("hidden");
+
+}
+
+
+function selectLanguage(lang,button){
+
+    selectedLanguage = lang;
+
+    document.querySelectorAll(".language-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    document.getElementById("continueLanguage")
+        .disabled = false;
+
+}
+
+
+function showAuth(){
+
+    if(!selectedLanguage) return;
+
+    localStorage.setItem(
+        "siflowLanguage",
+        selectedLanguage
+    );
+
+    document.getElementById("onboarding")
+        .classList.add("hidden");
+
+    const auth = document.getElementById("auth");
+
+    auth.classList.remove("hidden");
+
+    auth.style.display = "flex";
+
+}
+
+
+/* =========================
+   AUTH
+========================= */
+
+function toggleSignup(){
+
+    signupMode = !signupMode;
+
+    const title =
+        document.getElementById("authTitle");
+
+    const subtitle =
+        document.getElementById("authSubtitle");
+
+    const button =
+        document.querySelector(".auth-form button");
+
+    const switchArea =
+        document.querySelector(".auth-switch");
+
+    if(signupMode){
+
+        title.textContent =
+            "Create your Siflow account";
+
+        subtitle.textContent =
+            "Join Siflow and start creating.";
+
+        button.textContent =
+            "Create Account";
+
+        switchArea.innerHTML =
+        `Already have an account?
+        <button onclick="toggleSignup()">Sign In</button>`;
+
+    }else{
+
+        title.textContent =
+            "Welcome to Siflow";
+
+        subtitle.textContent =
+            "Sign in to continue";
+
+        button.textContent =
+            "Sign In";
+
+        switchArea.innerHTML =
+        `Don't have an account?
+        <button onclick="toggleSignup()">Sign Up</button>`;
+
+    }
+
+}
+
+
+function demoLogin(){
+
+    localStorage.setItem(
+        "siflowLoggedIn",
+        "true"
+    );
+
+    document.getElementById("auth")
+        .classList.add("hidden");
+
+    document.getElementById("app")
+        .classList.remove("hidden");
+
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+function sendMessage(){
+
+    const input =
+        document.getElementById("messageInput");
+
+    const text =
+        input.value.trim();
+
+    if(!text) return;
+
+    document.getElementById("welcome")
+        .classList.add("hidden");
+
+    addMessage(text,"user");
+
+    input.value = "";
+
+    setTimeout(() => {
+
+        addMessage(
+            "Hello! I'm Siflow. 🤖\n\n" +
+            "This is the demo version of Siflow Chat. " +
+            "The real AI model can be connected later through a secure backend.",
+            "ai"
+        );
+
+    },700);
+
+}
+
+
+function addMessage(text,type){
+
+    const messages =
+        document.getElementById("messages");
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "message " +
+        (type === "user"
+            ? "user-message"
+            : "");
+
+    const avatar =
+        type === "user"
+            ? "S"
+            : "✦";
+
+    const name =
+        type === "user"
+            ? "You"
+            : "Siflow";
+
+    div.innerHTML = `
+        <div class="message-avatar">
+            ${avatar}
+        </div>
+
+        <div class="message-content">
+
+            <div class="message-name">
+                ${name}
+            </div>
+
+            <div>
+                ${escapeHTML(text)}
+            </div>
+
+        </div>
+    `;
+
+    messages.appendChild(div);
+
+    const chatArea =
+        document.getElementById("chatArea");
+
+    chatArea.scrollTop =
+        chatArea.scrollHeight;
+
+}
+
+
+function escapeHTML(text){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+function handleKey(event){
+
+    if(
+        event.key === "Enter" &&
+        !event.shiftKey
+    ){
+
+        event.preventDefault();
+
+        sendMessage();
+
+    }
+
+}
+
+
+/* =========================
+   NEW CHAT
+========================= */
+
+function newChat(){
+
+    document.getElementById("messages")
+        .innerHTML = "";
+
+    document.getElementById("welcome")
+        .classList.remove("hidden");
+
+    document.getElementById("messageInput")
+        .value = "";
+
+    document.querySelectorAll(".chat-item")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
+
+}
+
+
+/* =========================
+   TOOLS
+========================= */
+
+function useTool(tool){
+
+    const input =
+        document.getElementById("messageInput");
+
+    const prompts = {
+
+        Code:
+        "Help me with coding.",
+
+        Learn:
+        "Help me understand a topic.",
+
+        Write:
+        "Help me write something.",
+
+        Create:
+        "Help me create something.",
+
+        Research:
+        "Help me research a topic.",
+
+        Analyze:
+        "I want to analyze a file."
+
+    };
+
+    input.value = prompts[tool];
+
+    input.focus();
+
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+function toggleSidebar(){
+
+    document.getElementById("sidebar")
+        .classList.toggle("open");
+
+}
+
+
+function loadChat(item){
+
+    document.querySelectorAll(".chat-item")
+        .forEach(x =>
+            x.classList.remove("active")
+        );
+
+    item.classList.add("active");
+
+    document.getElementById("welcome")
+        .classList.add("hidden");
+
+    document.getElementById("messages")
+        .innerHTML = "";
+
+    addMessage(
+        "This is a saved conversation: " +
+        item.textContent.trim(),
+        "ai"
+    );
+
+    if(window.innerWidth <= 800){
+
+        document.getElementById("sidebar")
+            .classList.remove("open");
+
+    }
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+function searchChats(){
+
+    const query =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    document.querySelectorAll(".chat-item")
+        .forEach(item => {
+
+            item.style.display =
+                item.textContent
+                .toLowerCase()
+                .includes(query)
+                ? "block"
+                : "none";
+
+        });
+
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+function openSettings(){
+
+    document.getElementById("settingsModal")
+        .classList.remove("hidden");
+
+}
+
+
+function closeSettings(){
+
+    document.getElementById("settingsModal")
+        .classList.add("hidden");
+
+}
+
+
+function setTheme(theme,button){
+
+    document.querySelectorAll(".theme-btn")
+        .forEach(x =>
+            x.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+    if(theme === "light"){
+
+        document.body.classList.add("light");
+
+    }else{
+
+        document.body.classList.remove("light");
+
+    }
+
+    localStorage.setItem(
+        "siflowTheme",
+        theme
+    );
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+    localStorage.removeItem(
+        "siflowLoggedIn"
+    );
+
+    location.reload();
+
+}
+
+
+/* =========================
+   STARTUP
+========================= */
+
+window.addEventListener("load",()=>{
+
+    const theme =
+        localStorage.getItem("siflowTheme");
+
+    if(theme === "light"){
+
+        document.body.classList.add("light");
+
+        document.querySelectorAll(".theme-btn")
+            .forEach((btn,index)=>{
+                btn.classList.toggle(
+                    "active",
+                    index === 1
+                );
+            });
+
+    }
+
+    const logged =
+        localStorage.getItem("siflowLoggedIn");
+
+    if(logged === "true"){
+
+        document.getElementById("onboarding")
+            .classList.add("hidden");
+
+        document.getElementById("auth")
+            .classList.add("hidden");
+
+        document.getElementById("app")
+            .classList.remove("hidden");
+
+    }
+
+});
+
+</script>
+
 </body>
 </html>
