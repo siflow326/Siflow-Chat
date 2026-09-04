@@ -2649,7 +2649,7 @@ function updateChatTitle(text){
 
 
 /* =========================================================
-   MESSAGING (REAL AI API INTEGRATION)
+   MESSAGING (REAL AI API INTEGRATION WITH ERROR HANDLING)
 ========================================================= */
 
 function sendMessage(){
@@ -2670,7 +2670,6 @@ function sendMessage(){
     updateSendButton();
     showTyping();
 
-    // المفتاح الخاص بك المدمج مباشرة للتشغيل على GitHub Pages
     const API_KEY = "AQ.Ab8RN6KZLaTVhSCh4S7LQdybnqVLDuKAnJMKZk54-Z5piRg20g";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
@@ -2678,25 +2677,32 @@ function sendMessage(){
         try {
             const res = await fetch(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                mode: 'cors',
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({
-                    contents: [{ parts: [{ text: text }] }]
+                    contents: [{
+                        parts: [{ text: text }]
+                    }]
                 })
             });
 
             const data = await res.json();
             removeTyping();
 
-            if(data.candidates && data.candidates[0].content){
+            if(data.candidates && data.candidates[0].content && data.candidates[0].content.parts){
                 const aiReply = data.candidates[0].content.parts[0].text;
                 addMessage(aiReply, "ai", true);
+            } else if(data.error) {
+                addMessage("خطأ من واجهة جوجل: " + data.error.message, "ai", true);
             } else {
-                addMessage(selectedLanguage === "ar" ? "عذراً، حدث خطأ في استجابة الذكاء الاصطناعي." : "Sorry, error in AI response.", "ai", true);
+                addMessage("عذراً، بنية الرد غير مطابقة أو المفتاح غير صالح.", "ai", true);
             }
 
         } catch (err) {
             removeTyping();
-            addMessage(selectedLanguage === "ar" ? "تعذر الاتصال بخدمة الذكاء الاصطناعي." : "Failed to connect to AI service.", "ai", true);
+            addMessage("تعذر الاتصال بالخادم: " + err.message, "ai", true);
         }
     }, 500);
 }
